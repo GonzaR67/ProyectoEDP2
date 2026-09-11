@@ -8,7 +8,7 @@ public class AutoMove {
         System.out.println("(1)Registrar Vehiculo");
         System.out.println("(2)Registrar Mision");
         System.out.println("(3)Mostrar Vehiculos");
-        System.out.println("(4)Asignar Misiones");
+        System.out.println("(4)Asignar Mision");
         System.out.println("(5)Salir");
         System.out.println("\n>>");
     }
