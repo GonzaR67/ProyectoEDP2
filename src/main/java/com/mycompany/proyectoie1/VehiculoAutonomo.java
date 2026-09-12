@@ -134,7 +134,7 @@ public abstract class VehiculoAutonomo implements Recargable {
    
         
     }
-    private int validarString(String str) throws StringVacio, StringLargo {
+    protected int validarString(String str) throws StringVacio, StringLargo {
         int b = 0;
         if (!str.isEmpty()) {
             b = 1;
@@ -146,7 +146,7 @@ public abstract class VehiculoAutonomo implements Recargable {
         return b;
     }
 
-    private int validarNum() throws NumeroValidoExcepcion {
+    protected int validarNum() throws NumeroValidoExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextInt()) {
             throw new NumeroValidoExcepcion("Error: Debe ingresar un numero entero...");
@@ -155,7 +155,7 @@ public abstract class VehiculoAutonomo implements Recargable {
 
     }
 
-    private int validarPos() throws NumeroValidoExcepcion, NumeroNegativoExcepcion {
+    protected int validarPos() throws NumeroValidoExcepcion, NumeroNegativoExcepcion {
         int b = 0;
         int num = validarNum();
         if (num >= 0) {
