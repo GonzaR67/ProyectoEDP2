@@ -65,36 +65,38 @@ public abstract class VehiculoAutonomo implements Recargable {
         setBateria(num); 
     }
     public void leerCapacidadCarga(){
-        int b= 0;
+        boolean b = false;
         int num =0;
         do{
             System.out.println("Ingrese la capacidad de carga: ");
             try{
                 num = validarPos(); 
+                b=true;
             }catch (NumeroValidoExcepcion e){
                 System.out.println(e.getMessage());
             }catch (NumeroNegativoExcepcion e){
                 System.out.println(e.getMessage());
             }
    
-        } while (b!=1);
+        } while (!b);
         setCapacidadCarga(num);
         
     }
     public void leerKM(){
-        int b=0;
+        boolean b = false;
         float num=0;
         do{
             System.out.println("Ingrese los kilometros: ");
             try{
                 num = validarPosFloat();
+                b=true;
             }catch(NumeroFlotanteExcepcion e){
                 System.out.println(e.getMessage());
                 
             }catch (NumeroNegativoExcepcion e){
                 System.out.println(e.getMessage());
             }
-        }while(b!=1);
+        }while(!b);
         setKm(num);
         
     }
@@ -182,7 +184,7 @@ public abstract class VehiculoAutonomo implements Recargable {
         }
     }
     
-     private float validarNumFloat() throws NumeroFlotanteExcepcion {
+     protected float validarNumFloat() throws NumeroFlotanteExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextFloat()) {
             throw new NumeroFlotanteExcepcion("Error: Debe ingresar un numero valido...");
@@ -204,7 +206,12 @@ public abstract class VehiculoAutonomo implements Recargable {
 
     @Override
     public String toString() {
-        return "VehiculoAutonomo{" + "codigo=" + codigo + ", modelo=" + modelo + ", bateria=" + bateria + ", capacidadCarga=" + capacidadCarga + ", km=" + km + ", estadoOperativo=" + estadoOperativo + '}';
+        return "\nCodigo="+codigo+
+               "\nModelo="+modelo+
+               "\nBateria="+bateria+
+               "\nCapacidad de carga="+capacidadCarga+ 
+               "\nKM="+km+
+               "\nEstado operativo="+estadoOperativo;
     }
     
     
