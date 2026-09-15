@@ -11,12 +11,27 @@ public class Dron extends VehiculoAutonomo {
         this.alturaMax=0;
     }
     
+    public int getAutonomia() {
+        return autonomia;
+    }
+
+    public void setAutonomia(int autonomia) {
+        this.autonomia = autonomia;
+    }
+
+    public int getAlturaMax() {
+        return alturaMax;
+    }
+
+    public void setAlturaMax(int alturaMax) {
+        this.alturaMax = alturaMax;
+    }
+    
     public void leerAuton(){
         boolean b=false;
         int num=0;
         do{
             System.out.println("Ingrese la autonomia de vuelo (minutos):");
-            num=sc.nextInt();
             try{
                 num=super.validarPos();
                 b=true;
@@ -42,22 +57,6 @@ public class Dron extends VehiculoAutonomo {
         setAlturaMax(num);
     }
     
-    public int getAutonomia() {
-        return autonomia;
-    }
-
-    public void setAutonomia(int autonomia) {
-        this.autonomia = autonomia;
-    }
-
-    public int getAlturaMax() {
-        return alturaMax;
-    }
-
-    public void setAlturaMax(int alturaMax) {
-        this.alturaMax = alturaMax;
-    }
-    
     @Override
     public void leerDatos(){
         super.leerDatos();
@@ -67,14 +66,12 @@ public class Dron extends VehiculoAutonomo {
 
     @Override
     public String toString() {
-        return super.toString()+ 
-                "Dron{" + 
-                "autonomia="+autonomia+
-                "alturaMax="+alturaMax+'}';
+        return  "Dron"+
+                super.toString()+ 
+                "\nAutonomia en minutos="+autonomia+
+                "\nAltura maxima="+alturaMax;
     }
-    
-    
-    
+
     @Override
     public double recargar() {
         throw new UnsupportedOperationException("Not supported yet.");
