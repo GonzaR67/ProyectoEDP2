@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Exception.java to edit this template
  */
-package com.mycompany.proyectoie1;
+package Logica;
 
 /**
  *
  * @author ruizg
  */
-public class StringLargo extends StringValido {
+public class StringValido extends Exception {
 
     /**
-     * Creates a new instance of <code>StringLargo</code> without detail
+     * Creates a new instance of <code>StringValido</code> without detail
      * message.
      */
-    public StringLargo() {
+    public StringValido() {
     }
 
     /**
-     * Constructs an instance of <code>StringLargo</code> with the specified
+     * Constructs an instance of <code>StringValido</code> with the specified
      * detail message.
      *
      * @param msg the detail message.
      */
-    public StringLargo(String msg) {
+    public StringValido(String msg) {
         super(msg);
     }
 }

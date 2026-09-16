@@ -1,4 +1,4 @@
-package com.mycompany.proyectoie1;
+package Logica;
 public interface Recargable {
     double recargar();
 }

@@ -1,4 +1,6 @@
-package com.mycompany.proyectoie1;
+package Logica;
+import Logica.NumeroValidoExcepcion;
+import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
 public class VehiculoElectrico extends VehiculoAutonomo {
     private int autonomiaKm;

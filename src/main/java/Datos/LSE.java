@@ -1,4 +1,5 @@
-package com.mycompany.proyectoie1;
+package Datos;
+
 public class LSE<T> {
     private Nodo<T> list;
     

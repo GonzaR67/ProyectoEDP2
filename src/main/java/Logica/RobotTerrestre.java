@@ -1,5 +1,9 @@
-package com.mycompany.proyectoie1;
+package Logica;
 
+import Logica.NumeroFlotanteExcepcion;
+import Logica.VelocidadMaximaExcepcion;
+import Logica.StringLargo;
+import Logica.StringVacio;
 import java.util.Scanner;
 
 public class RobotTerrestre extends VehiculoAutonomo{

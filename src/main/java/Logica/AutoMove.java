@@ -1,4 +1,10 @@
-package com.mycompany.proyectoie1;
+package Logica;
+import Datos.Nodo;
+import Logica.VehiculoAutonomo;
+import Logica.Dron;
+import Logica.VehiculoElectrico;
+import Logica.RobotTerrestre;
+import Datos.LSE;
 import java.util.Scanner;
 public class AutoMove {
     Scanner sc=new Scanner(System.in);

@@ -1,5 +1,11 @@
-package com.mycompany.proyectoie1;
+package Logica;
 
+import Logica.NumeroValidoExcepcion;
+import Logica.NumeroFlotanteExcepcion;
+import Logica.NumeroNegativoExcepcion;
+import Logica.StringLargo;
+import Logica.StringVacio;
+import Logica.NivelBateriInvalidoExcepcion;
 import java.util.Scanner;
 
 public abstract class VehiculoAutonomo implements Recargable {
@@ -168,6 +174,7 @@ public abstract class VehiculoAutonomo implements Recargable {
         return num;
 
     }
+    
     private int validarBateria() throws NumeroValidoExcepcion, NumeroNegativoExcepcion, NivelBateriInvalidoExcepcion {
         int num = validarPos();
         if (num > 100) {
@@ -178,13 +185,14 @@ public abstract class VehiculoAutonomo implements Recargable {
         }
         return num;
     }
+    
     public void actualizarEstado(){
         if (this.bateria == 0){
             this.estadoOperativo = "Cargando";
         }
     }
     
-     protected float validarNumFloat() throws NumeroFlotanteExcepcion {
+    protected float validarNumFloat() throws NumeroFlotanteExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextFloat()) {
             throw new NumeroFlotanteExcepcion("Error: Debe ingresar un numero valido...");

@@ -1,4 +1,4 @@
-package com.mycompany.proyectoie1;
+package Datos;
 public class Nodo<T> {
     private T dato;
     private Nodo<T> ps;
