@@ -20,8 +20,12 @@ public class Nodo<T> {
         return ps;
     }
 
-    public void setPs(Nodo<T> ps) {
+    private void setPs(Nodo<T> ps) {
         this.ps = ps;
+    }
+    
+    public void enlazar(Nodo<T> ref){
+        setPs(ref);
     }
     
     public String mostrar(){

@@ -14,12 +14,12 @@ public class LSE<T> {
     public void insertarPri(T r){
         Nodo<T> x = new Nodo<T>(r,list);
         if(list!=null){
-            x.setPs(list);
+            x.enlazar(list);
         }
         list=x;
     }
     
-    public boolean estaVacia(){
+    public boolean listaVacia(){
         return list == null;
     }
 }

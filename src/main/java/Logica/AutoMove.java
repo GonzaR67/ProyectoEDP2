@@ -1,110 +1,134 @@
 package Logica;
+
+import Datos.Cola;
 import Datos.Nodo;
 import Logica.VehiculoAutonomo;
 import Logica.Dron;
 import Logica.VehiculoElectrico;
 import Logica.RobotTerrestre;
 import Datos.LSE;
+import Logica.Mision;
 import java.util.Scanner;
+import Presentacion.Menu;
+
+
 public class AutoMove {
-    Scanner sc=new Scanner(System.in);
     LSE<VehiculoAutonomo> E;
-    
-    public AutoMove(){
-        E=new LSE<>();
+    Cola<Mision> M;
+
+    public AutoMove() {
+        E = new LSE<>();
+        M = new Cola<>();
     }
-    
-    public void mostrarOpciones(){
-        System.out.println("\n\n----------GESTOR AUTOMOVE----------");
-        System.out.println("(1)Registrar Vehiculo");
-        System.out.println("(2)Registrar Mision");
-        System.out.println("(3)Mostrar Vehiculos");
-        System.out.println("(4)Asignar Mision");
-        System.out.println("(5)Salir");
-        System.out.println("\n>>");
-    }
-    
-    public void mostrarTipos(){
-        System.out.println("----------TIPOS DE VEHICULO----------");
-        System.out.println("(1)Dron");
-        System.out.println("(2)Robot Terrestre");
-        System.out.println("(3)Vehiculo electrico");
-        System.out.println("(4)Salir");
-        System.out.println(">>>");
-    }
-    
-    public void mostrarVehiculos(){
+
+    public void mostrarVehiculos() {
         Nodo<VehiculoAutonomo> p = E.inicio();
-        if (p == null){
+        if (p == null) {
             System.out.println("No hay vehiculos aun");
             return;
         }
-        while(p!=null){
-            System.out.print("\nVehiculo autonomo de tipo:"+p.mostrar());
-            p=p.getPs();
+        while (p != null) {
+            System.out.print("\nVehiculo autonomo de tipo:" + p.mostrar());
+            p = p.getPs();
         }
     }
-    
-    public void registrarVehiculo(){
+
+    public void registrarVehiculo() {
+        Scanner sc = new Scanner(System.in);
+        Menu m = new Menu();
         int op;
-        do{
-            mostrarTipos();
-            op=sc.nextInt();
-            sc.nextLine();
-            VehiculoAutonomo v = null;
-            switch(op){
-                case(1):
-                    Dron d = new Dron();
-                    d.leerDatos();
-                    v=d;
-                    break;
-                case(2):
-                    RobotTerrestre r = new RobotTerrestre();
-                    r.leerDatos();
-                    v=r;
-                    break;
-                case(3):
-                    VehiculoElectrico e = new VehiculoElectrico();
-                    e.leerDatos();
-                    v=e;
-                    break;
-                case(4):
-                    System.out.println("Volviendo al menu...");
-                    break;
-                default:
-                    System.out.println("Error: opcion invalida!");
-                    break;
-            }
-            if (v!=null){
-                E.insertarPri(v);
-                System.out.println("Vehiculo cargado correctamente");
-            }
-        }while(op!=4);
+        boolean seguir = true;
+        while (seguir) {
+            do {
+                m.mostrarTipos();
+                op = sc.nextInt();
+                sc.nextLine();
+                VehiculoAutonomo v = null;
+                switch (op) {
+                    case (1):
+                        v = new Dron();
+                        break;
+                    case (2):
+                        v = new RobotTerrestre();
+                        break;
+                    case (3):
+                        v = new VehiculoElectrico();
+                        break;
+                    case (4):
+                        System.out.println("Volviendo al menu...");
+                        break;
+                    default:
+                        System.out.println("Error: opcion invalida!");
+                        break;
+                }
+
+                if (v != null) {
+                    v.leerDatos();
+                    E.insertarPri(v);
+                    System.out.println("Vehiculo cargado correctamente");
+
+                    System.out.println("Desea generar mas vehiculos? [Si / No]");
+                    String resp = sc.nextLine().toLowerCase();
+
+                    if (resp.equalsIgnoreCase("no")) {
+                        seguir = false;
+                    }
+                }
+
+            } while (op != 4);
+        }
     }
-    
-    public void menu(){
+
+    public void registrarMision() {
+        Scanner sc = new Scanner(System.in);
         int op;
-        do{
-            mostrarOpciones();
-            op=sc.nextInt();
+        boolean seguir = true;
+        
+        Mision m = new Mision();
+
+        while (seguir) {
+                    m.leerDatos();
+                    M.encolar(m);
+                    System.out.println("Mision cargada correctamente");
+                    System.out.println("Desea generar mas misiones? [Si / No]");
+                    String resp = sc.nextLine().toLowerCase();
+
+                    if (resp.equalsIgnoreCase("no")) {
+                        seguir = false;
+                    }
+                }
+        }
+
+
+    public void menu() {
+        Scanner sc = new Scanner(System.in);
+        Menu m = new Menu();
+
+        int op;
+        do {
+            m.mostrarOpciones();
+            op = sc.nextInt();
             sc.nextLine();
-            switch(op){
-                case(1):
+            switch (op) {
+                case (1):
                     registrarVehiculo();
                     break;
-                case(2):
-                case(3):
+                case (2):
+                    registrarMision();
+                    break;
+                case (3):
                     mostrarVehiculos();
                     break;
-                case(4):
-                case(5):
+                case (4):
+                case (5):
                     System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opcion invalida!");
             }
-        }while(op!=5);
+        } while (op != 5);
     }
+
     public static void main(String[] args) {
         AutoMove app = new AutoMove();
         app.menu();

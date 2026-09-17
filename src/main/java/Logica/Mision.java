@@ -26,12 +26,126 @@ public class Mision {
 
     
     public void leerDatos(){
-        leerCodigo();
+        leerOrigen();
+        leerDestino();
+        leerPeso();
+        leerPrioridad();
+        leerEstado();
+    }
+    
+    public void leerOrigen(){ 
+        Scanner sc = new Scanner(System.in);
+        int b=0;
+        String str= " ";
+        do{
+            System.out.println("Ingrese el origen: ");
+            str= sc.nextLine();
+            try{
+                b = validarString(str);
+                
+            }catch(StringVacio  e){
+                System.out.println(e.getMessage());
+            }catch(StringLargo e){
+                System.out.println(e.getMessage());
+            }
+   
+        }while(b!=1);
+        setOrigen(str);
+    }
+    
+    public void leerDestino(){ 
+        Scanner sc = new Scanner(System.in);
+        int b=0;
+        String str= " ";
+        do{
+            System.out.println("Ingrese el destino: ");
+            str= sc.nextLine();
+            try{
+                b = validarString(str);
+                
+            }catch(StringVacio  e){
+                System.out.println(e.getMessage());
+            }catch(StringLargo e){
+                System.out.println(e.getMessage());
+            }
+   
+        }while(b!=1);
+        setOrigen(str);
+    }
+    
+    public void leerPeso(){
+        boolean b = false;
+        float num=0;
+        do{
+            System.out.println("Ingrese el peso: ");
+            try{
+                num = validarPosFloat();
+                b=true;
+            }catch(NumeroFlotanteExcepcion e){
+                System.out.println(e.getMessage());
+                
+            }catch (NumeroNegativoExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }while(!b);
+        setPesoCarga(num);
+    }
+    
+    public void leerPrioridad(){
+        String str = " ";
+        int opc = 0;
+        do{
+            System.out.println("Ingrese el estado operativo [1-Disponible 2-En mision 3-Cargando]: ");
+            try{
+                opc = validarPos();
+            switch(opc){
+                case 0:
+                    System.out.println("Saliendo...");
+                    break;
+                case 1:
+                    str = "Disponible";
+                    break;
+                case 2:
+                    str = "En mision";
+                    break;
+                case 3:
+                    str = "Cargando";
+                    break;
+                default:
+                    System.out.println("Error: Ingrese una opcion valida [0-4]");
+                    break;
+            }
+                
+            }catch (NumeroValidoExcepcion e){
+                System.out.println(e.getMessage());
+            }catch (NumeroNegativoExcepcion e){
+                System.out.println(e.getMessage());
+            }
+            
+        } while(opc <0 || opc >4);
+        set(str);
+   
         
     }
     
+    public void leerEstado(){
+        
+    }
     
-    protected int validarNum() throws NumeroValidoExcepcion {
+    private int validarString(String str) throws StringVacio, StringLargo {
+        int b = 0;
+        if (!str.isEmpty()) {
+            b = 1;
+        } else if (str.isEmpty()) {
+            throw new StringVacio("Error: El ingreso no puede estar vacio...");
+        } else if (str.length() > 10) {
+            throw new StringLargo("Error: El ingreso supera el maximo permitido");
+        }
+        return b;
+    }
+    
+    
+    private int validarNum() throws NumeroValidoExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextInt()) {
             throw new NumeroValidoExcepcion("Error: Debe ingresar un numero entero...");
@@ -40,7 +154,7 @@ public class Mision {
 
     }
 
-    protected int validarPos() throws NumeroValidoExcepcion, NumeroNegativoExcepcion {
+    private int validarPos() throws NumeroValidoExcepcion, NumeroNegativoExcepcion {
         int b = 0;
         int num = validarNum();
         if (num >= 0) {
@@ -52,7 +166,7 @@ public class Mision {
 
     }
 
-    protected float validarNumFloat() throws NumeroFlotanteExcepcion {
+    private float validarNumFloat() throws NumeroFlotanteExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextFloat()) {
             throw new NumeroFlotanteExcepcion("Error: Debe ingresar un numero valido...");
