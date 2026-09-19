@@ -25,12 +25,31 @@ public abstract class VehiculoAutonomo implements Recargable {
         this.estadoOperativo = " ";
     }
     public void leerDatos(){
+        leerCodigo();
         leerModelo();
         leerBateria();
         leerCapacidadCarga();
         leerKM();
         leerEstadoOpe();
     }
+    
+    public void leerCodigo(){
+        Scanner sc=new Scanner(System.in);
+        String str = " ";
+        int b=0;
+        do{
+            System.out.println("Ingrese el codigo del vehiculo: ");
+            str=sc.nextLine();
+            try{
+                validarString(str);
+                b=1;
+            }catch(StringVacio | StringLargo e){
+                System.out.println(e.getMessage());
+            }
+        }while(b!=1);
+        setCodigo(str);
+    }
+    
     public void leerModelo(){ 
         Scanner sc = new Scanner(System.in);
         int b=0;
@@ -224,19 +243,26 @@ public abstract class VehiculoAutonomo implements Recargable {
     }
     
     
-    public String esApto(){
+    public boolean esApto(){
+        boolean b=true;
         if(this.estadoOperativo.equals("Disponible")){
-            if (this.bateria > 25) {
-                if(this.km > 100){
-                    if(this.estadoOperativo.equals("Disponible")){
-                        
-                    }
-                    
-                }
-                
-            }
-            
+            System.out.println("*El vehiculo no esta disponible");
+            b=false;
         }
+        if (this.bateria < 25) {
+            System.out.println("*El vehiculo posee poca bateria");
+            b=false;
+        }
+        if(this.km < 100){
+            System.out.println("*El vehiculo posee poco kilometraje");
+            b=false;
+        }
+        if(!b){
+            System.out.println("\nEl vehiculo no esta en condiciones");
+            return b;
+        }
+        System.out.println("\nEl vehiculo esta en condiciones");
+        return b;
     }
     
     
