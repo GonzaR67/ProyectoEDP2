@@ -1,5 +1,4 @@
 package Logica;
-
 import Datos.Cola;
 import Datos.Nodo;
 import Logica.VehiculoAutonomo;
@@ -101,25 +100,18 @@ public class AutoMove {
         String cod = " ";
         while (seguir) {
             if (!E.listaVacia()) {
-
                 System.out.println("ingrese codigo de vehiculo a verificar:");
                 cod = sc.nextLine();
 
-                if (p.getDato().getCodigo().equals(cod)) {
-                    if (p.getDato().getEstadoOperativo().equals("Disponible")) {
-                        if(p.getDato().getBateria().){
-                            
-                        }
-                        
-
+                while(p!=null){
+                    if (p.getDato().getCodigo().equals(cod)) {
+                            p.getDato().esApto();
                     }
-
+                    p=p.getPs();
                 }
-
-            } else {
-            }
-
-            System.out.println("Desea generar mas misiones? [Si / No]");
+                
+                }
+            System.out.println("\nDesea verificar la disponibilidad de otro vehiculo? [Si / No]");
             String resp = sc.nextLine().toLowerCase();
 
             if (resp.equalsIgnoreCase("no")) {
@@ -132,12 +124,6 @@ public class AutoMove {
 
     }
 
-    public void retornar(Cola aux) {
-        while (!aux.colaVacia()) {
-            Object dato = aux.desencolar();
-            M.encolar(dato);
-        }
-    }
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
