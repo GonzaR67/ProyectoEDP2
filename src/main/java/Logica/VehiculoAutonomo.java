@@ -9,7 +9,7 @@ import Logica.NivelBateriInvalidoExcepcion;
 import java.util.Scanner;
 
 public abstract class VehiculoAutonomo implements Recargable {
-    protected int codigo;
+    protected String codigo;
     protected String modelo;
     protected float bateria;
     protected int capacidadCarga;
@@ -17,6 +17,7 @@ public abstract class VehiculoAutonomo implements Recargable {
     protected String estadoOperativo;
 
     public VehiculoAutonomo() {
+        this.codigo = " ";
         this.modelo = " ";
         this.bateria = 0;
         this.capacidadCarga = 0;
@@ -223,14 +224,30 @@ public abstract class VehiculoAutonomo implements Recargable {
     }
     
     
+    public String esApto(){
+        if(this.estadoOperativo.equals("Disponible")){
+            if (this.bateria > 25) {
+                if(this.km > 100){
+                    if(this.estadoOperativo.equals("Disponible")){
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    
     
     
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    private void setCodigo(int codigo) {
+    private void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

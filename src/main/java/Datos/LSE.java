@@ -11,8 +11,8 @@ public class LSE<T> {
         return list;
     }
     
-    public void insertarPri(T r){
-        Nodo<T> x = new Nodo<T>(r,list);
+    public void insertarPri(T elem){
+        Nodo<T> x = new Nodo<T>(elem);
         if(list!=null){
             x.enlazar(list);
         }

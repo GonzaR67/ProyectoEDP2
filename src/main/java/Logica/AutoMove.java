@@ -11,8 +11,8 @@ import Logica.Mision;
 import java.util.Scanner;
 import Presentacion.Menu;
 
-
 public class AutoMove {
+
     LSE<VehiculoAutonomo> E;
     Cola<Mision> M;
 
@@ -38,12 +38,11 @@ public class AutoMove {
         Menu m = new Menu();
         int op;
         boolean seguir = true;
+        VehiculoAutonomo v = null;
         while (seguir) {
             do {
                 m.mostrarTipos();
                 op = sc.nextInt();
-                sc.nextLine();
-                VehiculoAutonomo v = null;
                 switch (op) {
                     case (1):
                         v = new Dron();
@@ -54,28 +53,24 @@ public class AutoMove {
                     case (3):
                         v = new VehiculoElectrico();
                         break;
-                    case (4):
-                        System.out.println("Volviendo al menu...");
-                        break;
                     default:
                         System.out.println("Error: opcion invalida!");
                         break;
                 }
+            } while (op > 3 || op < 1);
 
-                if (v != null) {
-                    v.leerDatos();
-                    E.insertarPri(v);
-                    System.out.println("Vehiculo cargado correctamente");
+            v.leerDatos();
+            E.insertarPri(v);
+            System.out.println("Vehiculo cargado correctamente");
+            sc.nextLine();
 
-                    System.out.println("Desea generar mas vehiculos? [Si / No]");
-                    String resp = sc.nextLine().toLowerCase();
+            System.out.println("Desea generar mas vehiculos? [Si / No]");
+            String resp = sc.nextLine();
 
-                    if (resp.equalsIgnoreCase("no")) {
-                        seguir = false;
-                    }
-                }
+            if (resp.equalsIgnoreCase("no")) {
+                seguir = false;
+            }
 
-            } while (op != 4);
         }
     }
 
@@ -83,22 +78,66 @@ public class AutoMove {
         Scanner sc = new Scanner(System.in);
         int op;
         boolean seguir = true;
-        
+
         Mision m = new Mision();
 
         while (seguir) {
-                    m.leerDatos();
-                    M.encolar(m);
-                    System.out.println("Mision cargada correctamente");
-                    System.out.println("Desea generar mas misiones? [Si / No]");
-                    String resp = sc.nextLine().toLowerCase();
+            m.leerDatos();
+            M.encolar(m);
+            System.out.println("Mision cargada correctamente");
+            System.out.println("Desea generar mas misiones? [Si / No]");
+            String resp = sc.nextLine().toLowerCase();
 
-                    if (resp.equalsIgnoreCase("no")) {
-                        seguir = false;
-                    }
-                }
+            if (resp.equalsIgnoreCase("no")) {
+                seguir = false;
+            }
         }
+    }
 
+    public void verDisponiblidad() {
+        Scanner sc = new Scanner(System.in);
+        Nodo<VehiculoAutonomo> p = E.inicio();
+        boolean seguir = true;
+        String cod = " ";
+        while (seguir) {
+            if (!E.listaVacia()) {
+
+                System.out.println("ingrese codigo de vehiculo a verificar:");
+                cod = sc.nextLine();
+
+                if (p.getDato().getCodigo().equals(cod)) {
+                    if (p.getDato().getEstadoOperativo().equals("Disponible")) {
+                        if(p.getDato().getBateria().){
+                            
+                        }
+                        
+
+                    }
+
+                }
+
+            } else {
+            }
+
+            System.out.println("Desea generar mas misiones? [Si / No]");
+            String resp = sc.nextLine().toLowerCase();
+
+            if (resp.equalsIgnoreCase("no")) {
+                seguir = false;
+            }
+        }
+    }
+
+    public void asignarMision() {
+
+    }
+
+    public void retornar(Cola aux) {
+        while (!aux.colaVacia()) {
+            Object dato = aux.desencolar();
+            M.encolar(dato);
+        }
+    }
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
@@ -110,17 +149,22 @@ public class AutoMove {
             op = sc.nextInt();
             sc.nextLine();
             switch (op) {
-                case (1):
+                case 1:
                     registrarVehiculo();
                     break;
-                case (2):
+                case 2:
                     registrarMision();
                     break;
-                case (3):
+                case 3:
                     mostrarVehiculos();
                     break;
-                case (4):
-                case (5):
+                case 4:
+                    verDisponiblidad();
+                    break;
+                case 5:
+                    asignarMision();
+                    break;
+                case 6:
                     System.out.println("Saliendo...");
                     break;
                 default:

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Mision {
 
-    private int codigoMision;
+    private String codigoMision;
     private String origen;
     private String destino;
     private float pesoCarga;
@@ -15,12 +15,12 @@ public class Mision {
     private String estado;
 
     public Mision() {
-        this.codigoMision = 0;
+        this.codigoMision = " ";
         this.origen = " ";
         this.destino = " ";
         this.pesoCarga = 0;
         this.prioridad = " ";
-        this.estado = " ";
+        this.estado = "Disponible";
     }
 
 
@@ -95,24 +95,18 @@ public class Mision {
         String str = " ";
         int opc = 0;
         do{
-            System.out.println("Ingrese el estado operativo [1-Disponible 2-En mision 3-Cargando]: ");
+            System.out.println("Ingrese la prioridad [1-Alta 2-Baja]: ");
             try{
                 opc = validarPos();
             switch(opc){
-                case 0:
-                    System.out.println("Saliendo...");
-                    break;
                 case 1:
-                    str = "Disponible";
+                    str = "Alta";
                     break;
                 case 2:
-                    str = "En mision";
-                    break;
-                case 3:
-                    str = "Cargando";
+                    str = "Baja";
                     break;
                 default:
-                    System.out.println("Error: Ingrese una opcion valida [0-4]");
+                    System.out.println("Error: Ingrese una opcion valida [1-2]");
                     break;
             }
                 
@@ -122,14 +116,38 @@ public class Mision {
                 System.out.println(e.getMessage());
             }
             
-        } while(opc <0 || opc >4);
-        set(str);
-   
-        
+            
+        } while(opc < 1 || opc > 2);
+        setPrioridad(str);
     }
     
     public void leerEstado(){
-        
+        String str = " ";
+        int opc = 0;
+        do{
+            System.out.println("Ingrese el estado [1-Asignada 2-Disponible]: ");
+            try{
+                opc = validarPos();
+            switch(opc){
+                case 1:
+                    str = "";
+                    break;
+                case 2:
+                    str = "Baja";
+                    break;
+                default:
+                    System.out.println("Error: Ingrese una opcion valida [1-2]");
+                    break;
+            }
+                
+            }catch (NumeroValidoExcepcion e){
+                System.out.println(e.getMessage());
+            }catch (NumeroNegativoExcepcion e){
+                System.out.println(e.getMessage());
+            }
+            
+        } while(opc < 1 || opc > 2);
+        setPrioridad(str);
     }
     
     private int validarString(String str) throws StringVacio, StringLargo {
@@ -186,11 +204,11 @@ public class Mision {
         return num;
     }
 
-    public int getCodigoMision() {
+    public String getCodigoMision() {
         return codigoMision;
     }
 
-    private void setCodigoMision(int codigoMision) {
+    private void setCodigoMision(String codigoMision) {
         this.codigoMision = codigoMision;
     }
 

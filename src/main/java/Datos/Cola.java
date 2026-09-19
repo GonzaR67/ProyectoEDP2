@@ -15,7 +15,7 @@ public class Cola<T> {
     }
     
     public void encolar(T elem){
-        Nodo<T> x = new Nodo<T>(elem, frente);
+        Nodo<T> x = new Nodo<T>(elem);
         if (!colaVacia()) {
             fondo.enlazar(x);
         } else {

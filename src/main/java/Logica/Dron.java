@@ -1,18 +1,19 @@
 package Logica;
+
 import Logica.NumeroValidoExcepcion;
 import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
 
 public class Dron extends VehiculoAutonomo {
+
     private int autonomia;
     private int alturaMax;
-    Scanner sc=new Scanner(System.in);
-    
-    public Dron(){
-        this.autonomia=0;
-        this.alturaMax=0;
+
+    public Dron() {
+        this.autonomia = 0;
+        this.alturaMax = 0;
     }
-    
+
     public int getAutonomia() {
         return autonomia;
     }
@@ -28,39 +29,41 @@ public class Dron extends VehiculoAutonomo {
     public void setAlturaMax(int alturaMax) {
         this.alturaMax = alturaMax;
     }
-    
-    public void leerAuton(){
-        boolean b=false;
-        int num=0;
-        do{
+
+    public void leerAuton() {
+        Scanner sc = new Scanner(System.in);
+        boolean b = false;
+        int num = 0;
+        do {
             System.out.println("Ingrese la autonomia de vuelo (minutos):");
-            try{
-                num=super.validarPos();
-                b=true;
-            }catch(NumeroValidoExcepcion | NumeroNegativoExcepcion  e){
+            try {
+                num = super.validarPos();
+                b = true;
+            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
                 System.out.println(e.getMessage());
             }
-        }while(!b);
+        } while (!b);
         setAutonomia(num);
     }
-    
-    public void leerAltura(){
-        boolean b=false;
-        int num=0;
-        do{
+
+    public void leerAltura() {
+        Scanner sc = new Scanner(System.in);
+        boolean b = false;
+        int num = 0;
+        do {
             System.out.println("Ingrese la altura maxima:");
-            try{
-                num=super.validarPos();
-                b=true;
-            }catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e){
+            try {
+                num = super.validarPos();
+                b = true;
+            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
                 System.out.println(e.getMessage());
             }
-        }while(!b);
+        } while (!b);
         setAlturaMax(num);
     }
-    
+
     @Override
-    public void leerDatos(){
+    public void leerDatos() {
         super.leerDatos();
         leerAuton();
         leerAltura();
@@ -68,10 +71,10 @@ public class Dron extends VehiculoAutonomo {
 
     @Override
     public String toString() {
-        return  "Dron"+
-                super.toString()+ 
-                "\nAutonomia en minutos="+autonomia+
-                "\nAltura maxima="+alturaMax;
+        return "Dron"
+                + super.toString()
+                + "\nAutonomia en minutos=" + autonomia
+                + "\nAltura maxima=" + alturaMax;
     }
 
     @Override

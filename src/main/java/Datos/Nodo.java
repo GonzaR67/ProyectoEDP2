@@ -3,9 +3,9 @@ public class Nodo<T> {
     private T dato;
     private Nodo<T> ps;
 
-    public Nodo(T dato, Nodo<T> ps) {
+    public Nodo(T dato) {
         this.dato = dato;
-        this.ps = ps;
+        this.ps = null;
     }
     
     public T getDato() {
