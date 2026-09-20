@@ -203,6 +203,12 @@ public class Mision {
         }
         return num;
     }
+    
+    
+    public void actualizarEstado(String s){
+        this.estado = s;
+    }
+    
 
     public String getCodigoMision() {
         return codigoMision;

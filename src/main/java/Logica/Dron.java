@@ -81,4 +81,24 @@ public class Dron extends VehiculoAutonomo {
     public double recargar() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
+    public void esApto() {
+        boolean b = true;
+        
+        if(this.bateria < 60){
+            System.out.println("el vehiculo no tiene suficiente bateria para la mision");
+            b = false;
+        }
+        
+        
+        if(b){
+            System.out.println("El dron es apto para la mision");
+        }else{
+            System.out.println("El dron no está apto para la mision");
+            
+        }
+        
+    }
+    
 }

@@ -1,49 +1,52 @@
 package Logica;
+
 import Logica.NumeroValidoExcepcion;
 import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
+
 public class VehiculoElectrico extends VehiculoAutonomo {
+
     private int autonomiaKm;
     private int tiempoRecarga;
-    Scanner sc=new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
     public VehiculoElectrico() {
         this.autonomiaKm = 0;
         this.tiempoRecarga = 0;
     }
-    
-    public void leerAutoKm(){
+
+    public void leerAutoKm() {
         boolean b = false;
         int num = 0;
-        do{
+        do {
             System.out.println("Ingrese la autonomia de funcionamiento (kilometros):");
-            num=sc.nextInt();
-            try{
-                num=super.validarPos();
-                b=true;
-            }catch(NumeroValidoExcepcion | NumeroNegativoExcepcion  e){
+            num = sc.nextInt();
+            try {
+                num = super.validarPos();
+                b = true;
+            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
                 System.out.println(e.getMessage());
             }
-        }while(!b);
+        } while (!b);
         setAutonomiaKm(num);
     }
-    
-    public void leerTiempoRec(){
+
+    public void leerTiempoRec() {
         boolean b = false;
         int num = 0;
-        do{
+        do {
             System.out.println("Ingrese el tiempo de recarga (minutos):");
-            num=sc.nextInt();
-            try{
-                num=super.validarPos();
-                b=true;
-            }catch(NumeroValidoExcepcion | NumeroNegativoExcepcion e){
+            num = sc.nextInt();
+            try {
+                num = super.validarPos();
+                b = true;
+            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
                 System.out.println(e.getMessage());
             }
-        }while(!b);
+        } while (!b);
         setTiempoRecarga(num);
     }
-    
+
     public int getAutonomiaKm() {
         return autonomiaKm;
     }
@@ -59,26 +62,41 @@ public class VehiculoElectrico extends VehiculoAutonomo {
     public void setTiempoRecarga(int tiempoRecarga) {
         this.tiempoRecarga = tiempoRecarga;
     }
-    
+
     @Override
-    public void leerDatos(){
+    public void leerDatos() {
         super.leerDatos();
         leerAutoKm();
         leerTiempoRec();
     }
-    
+
     @Override
-    public String toString(){
-        return  "Vehiculo Electrico"+ 
-                super.toString()+
-                "\nAutonomia en KM="+autonomiaKm+
-                "\nTiempo de Recarga="+tiempoRecarga;
+    public String toString() {
+        return "Vehiculo Electrico"
+                + super.toString()
+                + "\nAutonomia en KM=" + autonomiaKm
+                + "\nTiempo de Recarga=" + tiempoRecarga;
     }
-    
+
     @Override
     public double recargar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    
+    @Override
+    public void esApto() {
+        boolean b = true;
+
+        if (this.bateria < 20) {
+            System.out.println("el vehiculo no tiene suficiente bateria para la mision");
+            b = false;
+        }
+        if (b) {
+            System.out.println("El Vehiculo electrico es apto para la mision");
+        } else {
+            System.out.println("El Vehiculo electrico no está apto para la mision");
+        }
+
+    }
+
 }

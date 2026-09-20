@@ -1,4 +1,5 @@
 package Logica;
+
 import Datos.Cola;
 import Datos.Nodo;
 import Logica.VehiculoAutonomo;
@@ -94,36 +95,99 @@ public class AutoMove {
     }
 
     public void verDisponiblidad() {
+        if (E.listaVacia()) {
+            System.out.println("La lista se encuentra vacia...");
+            return;
+        }
         Scanner sc = new Scanner(System.in);
-        Nodo<VehiculoAutonomo> p = E.inicio();
         boolean seguir = true;
-        String cod = " ";
-        while (seguir) {
-            if (!E.listaVacia()) {
-                System.out.println("ingrese codigo de vehiculo a verificar:");
-                cod = sc.nextLine();
 
-                while(p!=null){
-                    if (p.getDato().getCodigo().equals(cod)) {
-                            p.getDato().esApto();
-                    }
-                    p=p.getPs();
+        while (seguir) {
+            System.out.println("Ingrese el codigo a verificar: ");
+            String cod = sc.nextLine();
+
+            VehiculoAutonomo v = buscarVehiculo(cod);
+
+            if (v != null) {
+                Mision m = M.frente();
+                if (condicionesGenerales(v, m)) {
+                    v.esApto();
+                } else {
+                    System.out.println("Las condiciones generales no son aptas para la mision...");
                 }
-                
-                }
+            } else {
+                System.out.println("No se encontro un vehiculo con ese codigo.");
+            }
             System.out.println("\nDesea verificar la disponibilidad de otro vehiculo? [Si / No]");
             String resp = sc.nextLine().toLowerCase();
-
             if (resp.equalsIgnoreCase("no")) {
                 seguir = false;
             }
         }
     }
 
-    public void asignarMision() {
-
+    public boolean condicionesGenerales(VehiculoAutonomo v, Mision m) {
+        if (m == null) {
+            System.out.println("No hay misiones registradas para comparar la carga.");
+            return false;
+        }
+        boolean apto = true;
+        if (!v.getEstadoOperativo().equalsIgnoreCase("Disponible")) {
+            apto = false;
+        }
+        if (m.getPesoCarga() > v.getCapacidadCarga()) {
+            apto = false;
+        }
+        return apto;
     }
 
+    public VehiculoAutonomo buscarVehiculo(String cod) {
+        Nodo<VehiculoAutonomo> p = E.inicio();
+        VehiculoAutonomo x = null;
+        while (p != null) {
+            if (p.getDato().getCodigo().equals(cod)) {
+                x = p.getDato();
+            }
+            p = p.getPs();
+        }
+        return x;
+    }
+
+    public void asignarMision() {
+        if (M.colaVacia()) {
+            System.out.println("No hay misiones pendientes.");
+            return;
+        }
+
+        Mision m = M.desencolar();
+        boolean b = false;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Misión a asignar: " + m.getCodigoMision());
+        System.out.println("Ingrese el código del vehículo que realizará la misión:");
+        String codVehiculo = sc.nextLine();
+
+        VehiculoAutonomo v = buscarVehiculo(codVehiculo);
+
+        if (v != null) {
+            if (condicionesGenerales(v, m)) {
+                v.esApto();
+                b = true;
+            } else {
+                System.out.println("Las condiciones generales no son aptas para la mision...");
+            }
+
+            if (b) {
+                v.cambiarEstado("en mision");
+                m.actualizarEstado("asignada");
+                System.out.println("Misión asignada exitosamente.");
+            }
+
+        } else {
+            System.out.println("No se encontro un vehiculo con ese codigo.");
+        }
+        M.encolar(m);
+    }
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
@@ -156,7 +220,7 @@ public class AutoMove {
                 default:
                     System.out.println("Opcion invalida!");
             }
-        } while (op != 5);
+        } while (op != 6);
     }
 
     public static void main(String[] args) {

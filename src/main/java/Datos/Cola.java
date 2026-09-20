@@ -36,5 +36,10 @@ public class Cola<T> {
         return x;
     }
     
+    public T frente(){
+        return frente.getDato();
+    }
+    
+    
 }
 

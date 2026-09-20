@@ -206,12 +206,6 @@ public abstract class VehiculoAutonomo implements Recargable {
         return num;
     }
     
-    public void actualizarEstado(){
-        if (this.bateria == 0){
-            this.estadoOperativo = "Cargando";
-        }
-    }
-    
     protected float validarNumFloat() throws NumeroFlotanteExcepcion {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextFloat()) {
@@ -240,35 +234,20 @@ public abstract class VehiculoAutonomo implements Recargable {
                "\nCapacidad de carga="+capacidadCarga+ 
                "\nKM="+km+
                "\nEstado operativo="+estadoOperativo;
+                
+               
     }
     
     
-    public boolean esApto(){
-        boolean b=true;
-        if(this.estadoOperativo.equals("Disponible")){
-            System.out.println("*El vehiculo no esta disponible");
-            b=false;
-        }
-        if (this.bateria < 25) {
-            System.out.println("*El vehiculo posee poca bateria");
-            b=false;
-        }
-        if(this.km < 100){
-            System.out.println("*El vehiculo posee poco kilometraje");
-            b=false;
-        }
-        if(!b){
-            System.out.println("\nEl vehiculo no esta en condiciones");
-            return b;
-        }
-        System.out.println("\nEl vehiculo esta en condiciones");
-        return b;
+    public abstract void esApto();
+    
+    
+    public void cambiarEstado(String s){
+        this.estadoOperativo = s;
     }
     
     
     
-    
-
     public String getCodigo() {
         return codigo;
     }
