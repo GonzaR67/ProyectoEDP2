@@ -1,9 +1,5 @@
 package Logica;
 
-import Logica.NumeroFlotanteExcepcion;
-import Logica.VelocidadMaximaExcepcion;
-import Logica.StringLargo;
-import Logica.StringVacio;
 import java.util.Scanner;
 
 public class RobotTerrestre extends VehiculoAutonomo {
@@ -92,11 +88,6 @@ public class RobotTerrestre extends VehiculoAutonomo {
     }
 
     @Override
-    public double recargar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void esApto() {
         boolean b = true;
         
@@ -112,6 +103,13 @@ public class RobotTerrestre extends VehiculoAutonomo {
         }
             
 
+    }
+    
+    @Override
+    public void recargar() {
+        this.bateria = 100;
+        this.estadoOperativo = "Disponible";
+        System.out.println("Bateria del Robot terrestre cargada al 100%.");
     }
 
     /*if(!this.estadoOperativo.equals("Disponible")){

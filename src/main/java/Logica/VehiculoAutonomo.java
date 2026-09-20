@@ -1,11 +1,5 @@
 package Logica;
 
-import Logica.NumeroValidoExcepcion;
-import Logica.NumeroFlotanteExcepcion;
-import Logica.NumeroNegativoExcepcion;
-import Logica.StringLargo;
-import Logica.StringVacio;
-import Logica.NivelBateriInvalidoExcepcion;
 import java.util.Scanner;
 
 public abstract class VehiculoAutonomo implements Recargable {

@@ -2,12 +2,7 @@ package Logica;
 
 import Datos.Cola;
 import Datos.Nodo;
-import Logica.VehiculoAutonomo;
-import Logica.Dron;
-import Logica.VehiculoElectrico;
-import Logica.RobotTerrestre;
 import Datos.LSE;
-import Logica.Mision;
 import java.util.Scanner;
 import Presentacion.Menu;
 
@@ -70,7 +65,6 @@ public class AutoMove {
             if (resp.equalsIgnoreCase("no")) {
                 seguir = false;
             }
-
         }
     }
 
@@ -78,7 +72,6 @@ public class AutoMove {
         Scanner sc = new Scanner(System.in);
         int op;
         boolean seguir = true;
-
         Mision m = new Mision();
 
         while (seguir) {
@@ -188,6 +181,31 @@ public class AutoMove {
         }
         M.encolar(m);
     }
+    
+    public void recargarVehiculo() {
+        if (E.listaVacia()) {
+            System.out.println("No hay vehiculos registrados.");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el codigo del vehiculo que desea recargar:");
+        String cod = sc.nextLine();
+
+        VehiculoAutonomo v = buscarVehiculo(cod);
+
+        if (v != null) {
+            if (v.getBateria() == 100) {
+                System.out.println("El vehiculo ya tiene la bateria al 100%.");
+            } else {
+                System.out.println("Iniciando proceso de recarga...");
+                v.recargar(); 
+            }
+        } else {
+            System.out.println("No se encontro un vehiculo con ese codigo.");
+        }
+    }
+    
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
@@ -213,8 +231,11 @@ public class AutoMove {
                     break;
                 case 5:
                     asignarMision();
-                    break;
+                    break;    
                 case 6:
+                    recargarVehiculo();
+                    break;    
+                case 7:
                     System.out.println("Saliendo...");
                     break;
                 default:

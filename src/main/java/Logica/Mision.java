@@ -1,8 +1,5 @@
 package Logica;
 
-import Logica.NumeroValidoExcepcion;
-import Logica.NumeroFlotanteExcepcion;
-import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
 
 public class Mision {

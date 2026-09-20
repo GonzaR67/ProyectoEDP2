@@ -1,7 +1,5 @@
 package Logica;
 
-import Logica.NumeroValidoExcepcion;
-import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
 
 public class VehiculoElectrico extends VehiculoAutonomo {
@@ -79,10 +77,12 @@ public class VehiculoElectrico extends VehiculoAutonomo {
     }
 
     @Override
-    public double recargar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void recargar() {
+        this.bateria = 100;
+        this.estadoOperativo = "Disponible";
+        System.out.println("Bateria del Vehiculo electrico cargada al 100%.");
     }
-
+    
     @Override
     public void esApto() {
         boolean b = true;

@@ -12,7 +12,8 @@ public class Menu {
         System.out.println("(3)Mostrar Vehiculos");
         System.out.println("(4)Determinar capacidad del automovil para una mision");
         System.out.println("(5)Asignar mision a un vehiculo");
-        System.out.println("(6)Salir");
+        System.out.println("(6) Recargar un vehiculo");
+        System.out.println("(7)Salir");
         System.out.println("\n>>");
     }
 

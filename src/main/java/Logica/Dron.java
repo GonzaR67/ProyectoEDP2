@@ -1,7 +1,5 @@
 package Logica;
 
-import Logica.NumeroValidoExcepcion;
-import Logica.NumeroNegativoExcepcion;
 import java.util.Scanner;
 
 public class Dron extends VehiculoAutonomo {
@@ -76,11 +74,6 @@ public class Dron extends VehiculoAutonomo {
                 + "\nAutonomia en minutos=" + autonomia
                 + "\nAltura maxima=" + alturaMax;
     }
-
-    @Override
-    public double recargar() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
     
     public void esApto() {
@@ -99,6 +92,15 @@ public class Dron extends VehiculoAutonomo {
             
         }
         
+        
+        
+    }
+    
+    @Override
+    public void recargar() {
+        this.bateria = 100;
+        this.estadoOperativo = "Disponible";
+        System.out.println("Bateria del Dron cargada al 100%.");
     }
     
 }

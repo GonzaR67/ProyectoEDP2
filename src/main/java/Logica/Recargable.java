@@ -1,4 +1,4 @@
 package Logica;
 public interface Recargable {
-    double recargar();
+    void recargar();
 }
