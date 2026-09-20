@@ -67,7 +67,7 @@ public class Mision {
             }
    
         }while(b!=1);
-        setOrigen(str);
+        setDestino(str);
     }
     
     public void leerPeso(){
@@ -127,10 +127,10 @@ public class Mision {
                 opc = validarPos();
             switch(opc){
                 case 1:
-                    str = "";
+                    str = "asignada";
                     break;
                 case 2:
-                    str = "Baja";
+                    str = "disponible";
                     break;
                 default:
                     System.out.println("Error: Ingrese una opcion valida [1-2]");
@@ -144,7 +144,7 @@ public class Mision {
             }
             
         } while(opc < 1 || opc > 2);
-        setPrioridad(str);
+        setEstado(str);
     }
     
     private int validarString(String str) throws StringVacio, StringLargo {

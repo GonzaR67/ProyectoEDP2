@@ -20,7 +20,7 @@ public class VehiculoElectrico extends VehiculoAutonomo {
             System.out.println("Ingrese la autonomia de funcionamiento (kilometros):");
             num = sc.nextInt();
             try {
-                num = super.validarPos();
+                num = validarPos();
                 b = true;
             } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
                 System.out.println(e.getMessage());
