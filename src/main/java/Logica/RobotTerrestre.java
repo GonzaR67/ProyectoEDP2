@@ -30,12 +30,15 @@ public class RobotTerrestre extends VehiculoAutonomo {
     }
 
     public void leerTipoTerreno() {
+        Scanner sc = new Scanner(System.in);
         int b = 0;
         String str = " ";
         do {
+            System.out.println("Ingrese el tipo de terreno: ");
+            str = sc.nextLine();
             try {
-                System.out.println("Ingrese el tipo de terreno: ");
                 b = validarString(str);
+
             } catch (StringVacio | StringLargo e) {
                 System.out.println(e.getMessage());
             }
@@ -51,6 +54,7 @@ public class RobotTerrestre extends VehiculoAutonomo {
             System.out.println("Ingrese la velocidad maxima: ");
             try {
                 num = validarVelocidad();
+                b = 1;
             } catch (NumeroFlotanteExcepcion | VelocidadMaximaExcepcion e) {
                 System.out.println(e.getMessage());
             }
@@ -63,7 +67,7 @@ public class RobotTerrestre extends VehiculoAutonomo {
         float num = validarNumFloat();
 
         if (num > 50) {
-            throw new VelocidadMaximaExcepcion("la velocidad");
+            throw new VelocidadMaximaExcepcion("la velocidad no puede exceder los 50km por ho");
         }
         return 1;
     }
@@ -84,22 +88,23 @@ public class RobotTerrestre extends VehiculoAutonomo {
     }
 
     @Override
-    public void esApto() {
+    public boolean esApto() {
         boolean b = true;
-
-        if (this.bateria < 40) {
+        
+        if(this.bateria < 40){
             System.out.println("el vehiculo no tiene suficiente bateria para la mision");
             b = false;
         }
-
-        if (b) {
+        
+        if(b){
             System.out.println("El robot terrestre es apto para la mision");
-        } else {
+        }else{
             System.out.println("El robot terrestre no está apto para la mision");
         }
-
+            
+        return b;
     }
-
+    
     @Override
     public void recargar() {
         this.bateria = 100;
@@ -111,4 +116,5 @@ public class RobotTerrestre extends VehiculoAutonomo {
             System.out.println("*El vehiculo no esta disponible");
             b=false;
         }*/
+    
 }

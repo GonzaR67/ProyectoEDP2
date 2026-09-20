@@ -82,9 +82,9 @@ public class VehiculoElectrico extends VehiculoAutonomo {
         this.estadoOperativo = "Disponible";
         System.out.println("Bateria del Vehiculo electrico cargada al 100%.");
     }
-    
+
     @Override
-    public void esApto() {
+    public boolean esApto() {
         boolean b = true;
 
         if (this.bateria < 20) {
@@ -96,7 +96,7 @@ public class VehiculoElectrico extends VehiculoAutonomo {
         } else {
             System.out.println("El Vehiculo electrico no está apto para la mision");
         }
-
+        return b;
     }
 
 }

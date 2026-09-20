@@ -233,7 +233,7 @@ public abstract class VehiculoAutonomo implements Recargable {
     }
     
     
-    public abstract void esApto();
+    public abstract boolean esApto();
     
     
     public void cambiarEstado(String s){

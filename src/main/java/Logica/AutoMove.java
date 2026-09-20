@@ -59,11 +59,26 @@ public class AutoMove {
             System.out.println("Vehiculo cargado correctamente");
             sc.nextLine();
 
-            System.out.println("Desea generar mas vehiculos? [Si / No]");
-            String resp = sc.nextLine();
-
-            if (resp.equalsIgnoreCase("no")) {
-                seguir = false;
+            boolean continuar = true;
+            String resp= " ";
+            while (continuar){
+                System.out.println("\nDesea registrar otro vehiculo? [Si / No]");
+                resp = sc.nextLine().trim();
+                switch (resp.toLowerCase()){
+                    case "si":
+                        seguir = true;
+                        continuar = false;
+                        break;
+                    case "no":
+                        seguir = false;
+                        continuar = false;
+                        break;
+                    default:
+                        System.out.println("Error: Ingrese [Si o No]");
+                        break;
+                }
+                    
+   
             }
         }
     }
@@ -111,10 +126,24 @@ public class AutoMove {
             } else {
                 System.out.println("No se encontro un vehiculo con ese codigo.");
             }
-            System.out.println("\nDesea verificar la disponibilidad de otro vehiculo? [Si / No]");
-            String resp = sc.nextLine().toLowerCase();
-            if (resp.equalsIgnoreCase("no")) {
-                seguir = false;
+            boolean continuar = true;
+            String resp= " ";
+            while (continuar){
+                System.out.println("\nDesea verificar la disponibilidad de otro vehiculo? [Si / No]");
+                resp = sc.nextLine().trim();
+                switch (resp.toLowerCase()){
+                    case "si":
+                        seguir = true;
+                        continuar = false;
+                        break;
+                    case "no":
+                        seguir = false;
+                        continuar = false;
+                        break;
+                    default:
+                        System.out.println("Error: Ingrese [Si o No]");
+                        break;
+                }
             }
         }
     }
@@ -153,7 +182,6 @@ public class AutoMove {
         }
 
         Mision m = M.desencolar();
-        boolean b = false;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Misión a asignar: " + m.getCodigoMision());
@@ -164,18 +192,14 @@ public class AutoMove {
 
         if (v != null) {
             if (condicionesGenerales(v, m)) {
-                v.esApto();
-                b = true;
+                if (v.esApto()) {
+                    v.cambiarEstado("en mision");
+                    m.actualizarEstado("asignada");
+                    System.out.println("Misión asignada exitosamente.");
+                }
             } else {
                 System.out.println("Las condiciones generales no son aptas para la mision...");
             }
-
-            if (b) {
-                v.cambiarEstado("en mision");
-                m.actualizarEstado("asignada");
-                System.out.println("Misión asignada exitosamente.");
-            }
-
         } else {
             System.out.println("No se encontro un vehiculo con ese codigo.");
         }
@@ -206,42 +230,57 @@ public class AutoMove {
         }
     }
     
+    
+    private int validarNum() throws NumeroValidoExcepcion {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) {
+            sc.nextLine();
+            throw new NumeroValidoExcepcion("Error: Debe ingresar un numero entero...");
+        }
+        
+        int num = sc.nextInt();
+        return num;
+    }
+    
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
         Menu m = new Menu();
-
-        int op;
+        int op = 0;
         do {
-            m.mostrarOpciones();
-            op = sc.nextInt();
-            sc.nextLine();
-            switch (op) {
-                case 1:
-                    registrarVehiculo();
-                    break;
-                case 2:
-                    registrarMision();
-                    break;
-                case 3:
-                    mostrarVehiculos();
-                    break;
-                case 4:
-                    verDisponiblidad();
-                    break;
-                case 5:
-                    asignarMision();
-                    break;    
-                case 6:
-                    recargarVehiculo();
-                    break;    
-                case 7:
-                    System.out.println("Saliendo...");
-                    break;
-                default:
-                    System.out.println("Opcion invalida!");
+            m.mostrarOpciones();      
+            try {
+                op = validarNum(); 
+                
+                switch (op) {
+                    case 1: 
+                        registrarVehiculo(); 
+                        break;
+                    case 2: 
+                        registrarMision(); 
+                        break;
+                    case 3: 
+                        mostrarVehiculos(); 
+                        break;
+                    case 4: 
+                        verDisponiblidad(); 
+                        break;
+                    case 5: 
+                        asignarMision(); 
+                        break;
+                    case 6: 
+                        recargarVehiculo(); 
+                        break;
+                    case 7: 
+                        System.out.println("Saliendo..."); 
+                        break;
+                    default: 
+                        System.out.println("Opcion invalida!");
+                }
+            } catch (NumeroValidoExcepcion e) {
+                System.out.println(e.getMessage());
             }
-        } while (op != 6);
+        } while (op != 7);
     }
 
     public static void main(String[] args) {

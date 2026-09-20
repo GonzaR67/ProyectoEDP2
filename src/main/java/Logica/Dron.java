@@ -76,7 +76,8 @@ public class Dron extends VehiculoAutonomo {
     }
     
     
-    public void esApto() {
+    @Override
+    public boolean esApto() {
         boolean b = true;
         
         if(this.bateria < 60){
@@ -93,7 +94,7 @@ public class Dron extends VehiculoAutonomo {
         }
         
         
-        
+        return b;
     }
     
     @Override
