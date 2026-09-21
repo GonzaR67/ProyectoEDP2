@@ -25,11 +25,30 @@ public class Mision {
 
     
     public void leerDatos(){
+        leerCodigoMision();
         leerOrigen();
         leerDestino();
+        leerDistancia();
         leerPeso();
         leerPrioridad();
         leerEstado();
+    }
+    
+    public void leerCodigoMision(){ 
+        Scanner sc = new Scanner(System.in);
+        int b=0;
+        String str= " ";
+        do{
+            System.out.println("Ingrese el codigo de mision: ");
+            str= sc.nextLine();
+            try{
+                b = validarString(str);
+                
+            }catch(StringVacio | StringLargo  e){
+                System.out.println(e.getMessage());
+            }
+        }while(b!=1);
+        setCodigoMision(str);
     }
     
     public void leerOrigen(){ 
