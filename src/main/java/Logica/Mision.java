@@ -7,6 +7,7 @@ public class Mision {
     private String codigoMision;
     private String origen;
     private String destino;
+    private float distancia;
     private float pesoCarga;
     private String prioridad;
     private String estado;
@@ -15,6 +16,7 @@ public class Mision {
         this.codigoMision = " ";
         this.origen = " ";
         this.destino = " ";
+        this.distancia = 0;
         this.pesoCarga = 0;
         this.prioridad = " ";
         this.estado = "Disponible";
@@ -68,6 +70,24 @@ public class Mision {
    
         }while(b!=1);
         setDestino(str);
+    }
+    
+    public void leerDistancia(){
+        boolean b = false;
+        float num=0;
+        do{
+            System.out.println("Ingrese la distancia aproximada: ");
+            try{
+                num = validarPosFloat();
+                b=true;
+            }catch(NumeroFlotanteExcepcion e){
+                System.out.println(e.getMessage());
+                
+            }catch (NumeroNegativoExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }while(!b);
+        setDistancia(num);
     }
     
     public void leerPeso(){
@@ -231,6 +251,13 @@ public class Mision {
         this.destino = destino;
     }
 
+    public float getDistancia() {
+        return distancia;
+    }
+
+    private void setDistancia(float distancia) {
+        this.distancia = distancia;
+    }
     public float getPesoCarga() {
         return pesoCarga;
     }

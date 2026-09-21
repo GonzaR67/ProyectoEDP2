@@ -128,9 +128,6 @@ public abstract class VehiculoAutonomo implements Recargable {
             try{
                 opc = validarPos();
             switch(opc){
-                case 0:
-                    System.out.println("Saliendo...");
-                    break;
                 case 1:
                     str = "Disponible";
                     break;
@@ -141,17 +138,16 @@ public abstract class VehiculoAutonomo implements Recargable {
                     str = "Cargando";
                     break;
                 default:
-                    System.out.println("Error: Ingrese una opcion valida [0-4]");
+                    System.out.println("Error: Ingrese una opcion valida [1-3]");
                     break;
             }
-                
             }catch (NumeroValidoExcepcion e){
                 System.out.println(e.getMessage());
             }catch (NumeroNegativoExcepcion e){
                 System.out.println(e.getMessage());
             }
             
-        } while(opc <0 || opc >4);
+        } while(opc <1 || opc >4);
         setEstadoOperativo(str);
    
         
