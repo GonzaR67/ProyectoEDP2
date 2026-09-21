@@ -55,10 +55,14 @@ public class AutoMove {
             } while (op > 3 || op < 1);
 
             v.leerDatos();
-            E.insertarPri(v);
-            System.out.println("Vehiculo cargado correctamente");
-            sc.nextLine();
-
+            if(buscarVehiculo(v.getCodigo())==null){
+                E.insertarPri(v);
+                System.out.println("Vehiculo cargado correctamente");
+                sc.nextLine();
+            }else{
+                System.out.println("\nYa hay un vehiculo registrado con ese codigo");
+                sc.nextLine();
+            }
             boolean continuar = true;
             String resp = " ";
             while (continuar) {
@@ -86,15 +90,19 @@ public class AutoMove {
         Scanner sc = new Scanner(System.in);
         int op;
         boolean seguir = true;
-        Mision m = new Mision();
-
         while (seguir) {
+            Mision m = new Mision();
             m.leerDatos();
-            M.encolar(m);
+            if(M.buscarMision(m.getCodigoMision())){
+                System.out.println("Ya hay una mision con ese codigo");
+            }else{
+                M.encolar(m);
+                System.out.println("Mision registrada correctamente");
+            } 
             boolean continuar = true;
             String resp = " ";
             while (continuar) {
-                System.out.println("\nDesea registrar otro vehiculo? [Si / No]");
+                System.out.println("\nDesea registrar otra mision? [Si / No]");
                 resp = sc.nextLine().trim();
                 switch (resp.toLowerCase()) {
                     case "si":
