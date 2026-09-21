@@ -171,7 +171,7 @@ public class AutoMove {
         if (m.getPesoCarga() > v.getCapacidadCarga()) {
             apto = false;
         }
-        if (m.getDistancia() > v.km ){
+        if (m.getDistancia() > v.getKm()){
             apto = false;
         }
         return apto;
