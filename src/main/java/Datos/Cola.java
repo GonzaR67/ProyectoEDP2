@@ -1,6 +1,6 @@
 
 package Datos;
-
+import Logica.Mision;
 public class Cola<T> {
     private Nodo<T> fondo;
     private Nodo<T> frente;
@@ -35,6 +35,22 @@ public class Cola<T> {
         
         return x;
     }
+    
+    public boolean buscarMision(String cod) {
+    Nodo<T> aux = frente;
+
+    while (aux != null) {
+        Mision m = (Mision) aux.getDato();
+
+        if (m.getCodigoMision().equals(cod)) {
+            return true;
+        }
+
+        aux = aux.getPs();
+    }
+
+    return false;
+}
     
     public T frente(){
         return frente.getDato();
