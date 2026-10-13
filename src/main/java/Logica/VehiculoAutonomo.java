@@ -1,5 +1,11 @@
 package Logica;
 
+import Presentacion.StringVacio;
+import Presentacion.StringLargo;
+import Presentacion.NumeroFlotanteExcepcion;
+import Presentacion.NumeroNegativoExcepcion;
+import Presentacion.NivelBateriInvalidoExcepcion;
+import Presentacion.NumeroValidoExcepcion;
 import java.util.Scanner;
 
 public abstract class VehiculoAutonomo implements Recargable {
@@ -153,16 +159,14 @@ public abstract class VehiculoAutonomo implements Recargable {
         
     }
     protected int validarString(String str) throws StringVacio, StringLargo {
-        int b = 0;
-        if (!str.isEmpty()) {
-            b = 1;
-        } else if (str.isEmpty()) {
-            throw new StringVacio("Error: El ingreso no puede estar vacio...");
-        } else if (str.length() > 10) {
-            throw new StringLargo("Error: El ingreso supera el maximo permitido");
-        }
-        return b;
+    if (str == null || str.trim().isEmpty()) {
+        throw new StringVacio("Error: El ingreso no puede estar vacio...");
     }
+    if (str.length() > 10) {
+        throw new StringLargo("Error: El ingreso supera el maximo permitido");
+    }
+    return 1;
+}
 
     protected int validarNum() throws NumeroValidoExcepcion {
         Scanner sc = new Scanner(System.in);

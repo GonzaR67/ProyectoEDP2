@@ -1,5 +1,6 @@
 package Logica;
 
+import Presentacion.NumeroValidoExcepcion;
 import Datos.Cola;
 import Datos.Nodo;
 import Datos.LSE;
@@ -198,35 +199,47 @@ public class AutoMove {
     }
 
     public void asignarMision() {
-        if (M.colaVacia()) {
-            System.out.println("No hay misiones pendientes.");
-            return;
-        }
+    if (M.colaVacia()) {
+        System.out.println("No hay misiones pendientes.");
+        return;
+    }
 
-        Mision m = M.desencolar();
+    Mision m = M.desencolar();
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Misión a asignar: " + m.getCodigoMision());
-        System.out.println("Ingrese el código del vehículo que realizará la misión:");
-        String codVehiculo = sc.nextLine();
+    // 1. Verificar si la misión está disponible
+    if (!m.getEstado().equalsIgnoreCase("disponible")) {
+        System.out.println("La misión extraída ya se encuentra asignada.");
+        return; 
+    }
 
-        VehiculoAutonomo v = buscarVehiculo(codVehiculo);
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Misión a asignar: " + m.getCodigoMision());
+    System.out.println("Ingrese el código del vehículo que realizará la misión:");
+    String codVehiculo = sc.nextLine();
 
-        if (v != null) {
-            if (condicionesGenerales(v, m)) {
-                if (v.esApto()) {
-                    v.cambiarEstado("en mision");
-                    m.actualizarEstado("asignada");
-                    System.out.println("Misión asignada exitosamente.");
-                }
-            } else {
-                System.out.println("Las condiciones generales no son aptas para la mision...");
+    VehiculoAutonomo v = buscarVehiculo(codVehiculo);
+    boolean asignacionExitosa = false;
+
+    if (v != null) {
+        if (condicionesGenerales(v, m)) {
+            if (v.esApto()) {
+                v.cambiarEstado("en mision");
+                m.actualizarEstado("asignada");
+                System.out.println("Misión asignada exitosamente.");
+                asignacionExitosa = true; // Marcamos éxito
             }
         } else {
-            System.out.println("No se encontro un vehiculo con ese codigo.");
+            System.out.println("Las condiciones generales no son aptas.");
         }
+    } else {
+        System.out.println("No se encontro el vehiculo.");
+    }
+
+    // 2. Solo devolvemos a la cola si falló la asignación
+    if (!asignacionExitosa) {
         M.encolar(m);
     }
+}
 
     public void recargarVehiculo() {
         if (E.listaVacia()) {

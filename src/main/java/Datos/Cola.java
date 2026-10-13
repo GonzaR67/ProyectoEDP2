@@ -36,25 +36,13 @@ public class Cola<T> {
         return x;
     }
     
-    public boolean buscarMision(String cod) {
-    Nodo<T> aux = frente;
-
-    while (aux != null) {
-        Mision m = (Mision) aux.getDato();
-
-        if (m.getCodigoMision().equals(cod)) {
-            return true;
-        }
-
-        aux = aux.getPs();
-    }
-
-    return false;
-}
     
-    public T frente(){
-        return frente.getDato();
+    public T frente() {
+    if (colaVacia()) {
+        return null;
     }
+    return frente.getDato();
+}
     
     
 }

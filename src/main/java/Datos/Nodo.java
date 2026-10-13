@@ -1,4 +1,5 @@
 package Datos;
+
 public class Nodo<T> {
     private T dato;
     private Nodo<T> ps;

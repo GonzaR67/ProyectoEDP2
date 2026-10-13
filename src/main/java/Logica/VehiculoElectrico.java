@@ -1,5 +1,7 @@
 package Logica;
 
+import Presentacion.NumeroNegativoExcepcion;
+import Presentacion.NumeroValidoExcepcion;
 import java.util.Scanner;
 
 public class VehiculoElectrico extends VehiculoAutonomo {

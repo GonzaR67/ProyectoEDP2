@@ -1,5 +1,9 @@
 package Logica;
 
+import Presentacion.VelocidadMaximaExcepcion;
+import Presentacion.StringVacio;
+import Presentacion.StringLargo;
+import Presentacion.NumeroFlotanteExcepcion;
 import java.util.Scanner;
 
 public class RobotTerrestre extends VehiculoAutonomo {
@@ -69,7 +73,7 @@ public class RobotTerrestre extends VehiculoAutonomo {
         if (num > 50) {
             throw new VelocidadMaximaExcepcion("la velocidad no puede exceder los 50km por ho");
         }
-        return 1;
+        return num;
     }
 
     @Override

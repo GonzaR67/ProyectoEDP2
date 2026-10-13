@@ -1,5 +1,10 @@
 package Logica;
 
+import Presentacion.StringVacio;
+import Presentacion.StringLargo;
+import Presentacion.NumeroNegativoExcepcion;
+import Presentacion.NumeroFlotanteExcepcion;
+import Presentacion.NumeroValidoExcepcion;
 import java.util.Scanner;
 
 public class Mision {
@@ -187,16 +192,14 @@ public class Mision {
     }
     
     private int validarString(String str) throws StringVacio, StringLargo {
-        int b = 0;
-        if (!str.isEmpty()) {
-            b = 1;
-        } else if (str.isEmpty()) {
-            throw new StringVacio("Error: El ingreso no puede estar vacio...");
-        } else if (str.length() > 10) {
-            throw new StringLargo("Error: El ingreso supera el maximo permitido");
-        }
-        return b;
+    if (str == null || str.trim().isEmpty()) {
+        throw new StringVacio("Error: El ingreso no puede estar vacio...");
     }
+    if (str.length() > 10) {
+        throw new StringLargo("Error: El ingreso supera el maximo permitido");
+    }
+    return 1;
+}
     
     
     private int validarNum() throws NumeroValidoExcepcion {
