@@ -7,7 +7,7 @@ import Presentacion.StringVacio;
 import Presentacion.NivelBateriInvalidoExcepcion;
 import Presentacion.NumeroValidoExcepcion;
 
-public abstract class VehiculoAutonomo implements Recargable {
+public abstract class VehiculoAutonomo implements Recargable,Comparable<VehiculoAutonomo> {
     protected String codigo;
     protected String modelo;
     protected double bateria;

@@ -1,39 +1,34 @@
 package Presentacion;
 
 import Datos.Cola;
-import Datos.LSE;
+import Datos.ArbolABB;
 import Datos.Nodo;
+import Datos.NodoABB;
 import Logica.Dron;
+import Logica.GestorABB;
 import Logica.Mision;
 import Logica.RobotTerrestre;
 import Logica.VehiculoAutonomo;
 import Logica.VehiculoElectrico;
+import java.util.List;
 
 public class Menu {
-
-    LSE<VehiculoAutonomo> E;
+    private GestorABB gestor;
+    ArbolABB<VehiculoAutonomo> E;
     Cola<Mision> M;
 
     public Menu() {
-        E = new LSE<>();
+        gestor = new GestorABB();
+        E = new ArbolABB<>();
         M = new Cola<>();
     }
 
-    public void mostrarVehiculos() {
-        Nodo<VehiculoAutonomo> p = E.inicio();
-        if (p == null) {
-            Consola.emitirMensajeln("No hay vehiculos aun");
-            return;
-        }
-        while (p != null) {
-            Consola.emitirMensaje("\nVehiculo autonomo de tipo:" + p.mostrar());
-            p = p.getPs();
-        }
+    public List<VehiculoAutonomo> mostarVehiculos(){
+        return E.inOrden();
     }
 
     public void registrarVehiculo() {
         boolean seguir = true;
-
         while (seguir) {
             // 1. Pedimos el código PRIMERO usando leerString directamente
             Consola.emitirMensaje("Ingrese el codigo del vehiculo: ");
@@ -94,11 +89,8 @@ public class Menu {
                             break;
                     }
 
-                    // 6. Validamos los datos generales
-                    v.validarDatosGenerales(cod, mod, bat, cap, km);
-
-                    // 7. Guardamos
-                    E.insertarPri(v);
+                    gestor.agregar(v,cod, mod, bat, cap, km);
+                    
                     Consola.emitirMensajeln("Vehiculo cargado correctamente.");
 
                 } catch (Exception e) {
@@ -181,7 +173,7 @@ public class Menu {
     }
 
     public void verDisponiblidad() {
-        if (E.listaVacia()) {
+        if (gestor.estaVacio()) {
             Consola.emitirMensajeln("La lista se encuentra vacia...");
             return;
         }
@@ -250,16 +242,19 @@ public class Menu {
         return apto;
     }
 
-    public VehiculoAutonomo buscarVehiculo(String cod) {
-        Nodo<VehiculoAutonomo> p = E.inicio();
-        VehiculoAutonomo x = null;
-        while (p != null) {
-            if (p.getDato().getCodigo().equals(cod)) {
-                x = p.getDato();
+    public void buscarVehiculo() {
+        Consola.emitirMensaje("Ingrese el codigo del vehiculo a buscar: ");
+        String cod = Consola.leerString();
+        try{
+            VehiculoAutonomo v = gestor.busqueda(cod);
+            if (v==null){
+                Consola.emitirMensaje("No existe un vehiculo con ese codigo");
+            }else{
+                Consola.emitirMensaje(v.getCodigo());
             }
-            p = p.getPs();
+        }catch(IllegalArgumentException e){
+            Consola.emitirMensaje("Error: "+e.getMessage());
         }
-        return x;
     }
 
     public boolean buscarMision(String cod) {
