@@ -1,109 +1,47 @@
 package Logica;
 
 import Presentacion.NumeroNegativoExcepcion;
-import Presentacion.NumeroValidoExcepcion;
-import java.util.Scanner;
 
-public class Dron extends VehiculoAutonomo {
-
+public class Dron extends VehiculoAutonomo{
     private int autonomia;
     private int alturaMax;
 
     public Dron() {
+        super();
         this.autonomia = 0;
         this.alturaMax = 0;
     }
 
-    public int getAutonomia() {
-        return autonomia;
-    }
-
-    public void setAutonomia(int autonomia) {
-        this.autonomia = autonomia;
-    }
-
-    public int getAlturaMax() {
-        return alturaMax;
-    }
-
-    public void setAlturaMax(int alturaMax) {
-        this.alturaMax = alturaMax;
-    }
-
-    public void leerAuton() {
-        Scanner sc = new Scanner(System.in);
-        boolean b = false;
-        int num = 0;
-        do {
-            System.out.println("Ingrese la autonomia de vuelo (minutos):");
-            try {
-                num = super.validarPos();
-                b = true;
-            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
-                System.out.println(e.getMessage());
-            }
-        } while (!b);
-        setAutonomia(num);
-    }
-
-    public void leerAltura() {
-        Scanner sc = new Scanner(System.in);
-        boolean b = false;
-        int num = 0;
-        do {
-            System.out.println("Ingrese la altura maxima:");
-            try {
-                num = super.validarPos();
-                b = true;
-            } catch (NumeroValidoExcepcion | NumeroNegativoExcepcion e) {
-                System.out.println(e.getMessage());
-            }
-        } while (!b);
-        setAlturaMax(num);
-    }
-
-    @Override
-    public void leerDatos() {
-        super.leerDatos();
-        leerAuton();
-        leerAltura();
-    }
-
-    @Override
-    public String toString() {
-        return "Dron"
-                + super.toString()
-                + "\nAutonomia en minutos=" + autonomia
-                + "\nAltura maxima=" + alturaMax;
-    }
-    
-    
-    @Override
-    public boolean esApto() {
-        boolean b = true;
+    public void validarDatosDron(int autonomia, int alturaMax) throws NumeroNegativoExcepcion {
+        if (autonomia <= 0) throw new NumeroNegativoExcepcion("Error: La autonomia debe ser mayor a cero.");
+        if (alturaMax <= 0) throw new NumeroNegativoExcepcion("Error: La altura maxima debe ser mayor a cero.");
         
-        if(this.bateria < 60){
-            System.out.println("el vehiculo no tiene suficiente bateria para la mision");
-            b = false;
+        setAutonomia(autonomia);
+        setAlturaMax(alturaMax);
+    }
+
+    @Override
+    public boolean esApto(Mision m) {
+        // Logica pura, sin System.out
+        if (this.bateria < 60) {
+            return false;
         }
-        
-        
-        if(b){
-            System.out.println("El dron es apto para la mision");
-        }else{
-            System.out.println("El dron no está apto para la mision");
-            
-        }
-        
-        
-        return b;
+        return true;
     }
-    
+
     @Override
     public void recargar() {
         this.bateria = 100;
         this.estadoOperativo = "Disponible";
-        System.out.println("Bateria del Dron cargada al 100%.");
     }
-    
+
+    @Override
+    public String toString() {
+        return "Dron" + super.toString() + "\nAutonomia en minutos=" + autonomia + "\nAltura maxima=" + alturaMax;
+    }
+
+    public int getAutonomia() { return autonomia; }
+    private void setAutonomia(int autonomia) { this.autonomia = autonomia; }
+    public int getAlturaMax() { return alturaMax; }
+    private void setAlturaMax(int alturaMax) { this.alturaMax = alturaMax; }
 }

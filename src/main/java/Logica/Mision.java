@@ -1,11 +1,11 @@
 package Logica;
 
-import Presentacion.StringVacio;
-import Presentacion.StringLargo;
+// ¡IMPORTANTE! Ya no importamos java.util.Scanner;
+
 import Presentacion.NumeroNegativoExcepcion;
-import Presentacion.NumeroFlotanteExcepcion;
-import Presentacion.NumeroValidoExcepcion;
-import java.util.Scanner;
+import Presentacion.StringLargo;
+import Presentacion.StringVacio;
+
 
 public class Mision {
 
@@ -18,290 +18,101 @@ public class Mision {
     private String estado;
 
     public Mision() {
-        this.codigoMision = " ";
-        this.origen = " ";
-        this.destino = " ";
+        this.codigoMision = "";
+        this.origen = "";
+        this.destino = "";
         this.distancia = 0;
         this.pesoCarga = 0;
-        this.prioridad = " ";
-        this.estado = "Disponible";
+        this.prioridad = "";
+        this.estado = "disponible"; // Nace disponible por defecto, como pidió el profe
     }
 
+    // -------------------------------------------------
+    // 1. EL MÉTODO AGRUPADOR
+    // Recibe todos los datos listos desde la Presentación
+    // -------------------------------------------------
+    public void validarDatos(String codigo, String origen, String destino, float distancia, float peso, String prioridad) 
+            throws StringVacio, StringLargo, NumeroNegativoExcepcion {
+        
+        validarCodigo(codigo);
+        validarOrigen(origen);
+        validarDestino(destino);
+        validarDistancia(distancia);
+        validarPeso(peso);
+        validarPrioridad(prioridad);
+    }
 
-    
-    public void leerDatos(){
-        leerCodigoMision();
-        leerOrigen();
-        leerDestino();
-        leerDistancia();
-        leerPeso();
-        leerPrioridad();
-        leerEstado();
+    // -------------------------------------------------
+    // 2. VALIDACIONES POR ATRIBUTO (Reemplazan a los leer...)
+    // Controlan el dato y, si es correcto, llaman a su setter
+    // -------------------------------------------------
+    private void validarCodigo(String cod) throws StringVacio, StringLargo {
+        validarString(cod);
+        setCodigoMision(cod);
     }
-    
-    public void leerCodigoMision(){ 
-        Scanner sc = new Scanner(System.in);
-        int b=0;
-        String str= " ";
-        do{
-            System.out.println("Ingrese el codigo de mision: ");
-            str= sc.nextLine();
-            try{
-                b = validarString(str);
-                
-            }catch(StringVacio | StringLargo  e){
-                System.out.println(e.getMessage());
-            }
-        }while(b!=1);
-        setCodigoMision(str);
+
+    private void validarOrigen(String ori) throws StringVacio, StringLargo {
+        validarString(ori);
+        setOrigen(ori);
     }
-    
-    public void leerOrigen(){ 
-        Scanner sc = new Scanner(System.in);
-        int b=0;
-        String str= " ";
-        do{
-            System.out.println("Ingrese el origen: ");
-            str= sc.nextLine();
-            try{
-                b = validarString(str);
-                
-            }catch(StringVacio  e){
-                System.out.println(e.getMessage());
-            }catch(StringLargo e){
-                System.out.println(e.getMessage());
-            }
-   
-        }while(b!=1);
-        setOrigen(str);
+
+    private void validarDestino(String dest) throws StringVacio, StringLargo {
+        validarString(dest);
+        setDestino(dest);
     }
-    
-    public void leerDestino(){ 
-        Scanner sc = new Scanner(System.in);
-        int b=0;
-        String str= " ";
-        do{
-            System.out.println("Ingrese el destino: ");
-            str= sc.nextLine();
-            try{
-                b = validarString(str);
-                
-            }catch(StringVacio  e){
-                System.out.println(e.getMessage());
-            }catch(StringLargo e){
-                System.out.println(e.getMessage());
-            }
-   
-        }while(b!=1);
-        setDestino(str);
-    }
-    
-    public void leerDistancia(){
-        boolean b = false;
-        float num=0;
-        do{
-            System.out.println("Ingrese la distancia aproximada: ");
-            try{
-                num = validarPosFloat();
-                b=true;
-            }catch(NumeroFlotanteExcepcion e){
-                System.out.println(e.getMessage());
-                
-            }catch (NumeroNegativoExcepcion e){
-                System.out.println(e.getMessage());
-            }
-        }while(!b);
-        setDistancia(num);
-    }
-    
-    public void leerPeso(){
-        boolean b = false;
-        float num=0;
-        do{
-            System.out.println("Ingrese el peso: ");
-            try{
-                num = validarPosFloat();
-                b=true;
-            }catch(NumeroFlotanteExcepcion e){
-                System.out.println(e.getMessage());
-                
-            }catch (NumeroNegativoExcepcion e){
-                System.out.println(e.getMessage());
-            }
-        }while(!b);
-        setPesoCarga(num);
-    }
-    
-    public void leerPrioridad(){
-        String str = " ";
-        int opc = 0;
-        do{
-            System.out.println("Ingrese la prioridad [1-Alta 2-Baja]: ");
-            try{
-                opc = validarPos();
-            switch(opc){
-                case 1:
-                    str = "Alta";
-                    break;
-                case 2:
-                    str = "Baja";
-                    break;
-                default:
-                    System.out.println("Error: Ingrese una opcion valida [1-2]");
-                    break;
-            }
-                
-            }catch (NumeroValidoExcepcion e){
-                System.out.println(e.getMessage());
-            }catch (NumeroNegativoExcepcion e){
-                System.out.println(e.getMessage());
-            }
-            
-            
-        } while(opc < 1 || opc > 2);
-        setPrioridad(str);
-    }
-    
-    public void leerEstado(){
-        String str = " ";
-        int opc = 0;
-        do{
-            System.out.println("Ingrese el estado [1-Asignada 2-Disponible]: ");
-            try{
-                opc = validarPos();
-            switch(opc){
-                case 1:
-                    str = "asignada";
-                    break;
-                case 2:
-                    str = "disponible";
-                    break;
-                default:
-                    System.out.println("Error: Ingrese una opcion valida [1-2]");
-                    break;
-            }
-                
-            }catch (NumeroValidoExcepcion e){
-                System.out.println(e.getMessage());
-            }catch (NumeroNegativoExcepcion e){
-                System.out.println(e.getMessage());
-            }
-            
-        } while(opc < 1 || opc > 2);
-        setEstado(str);
-    }
-    
-    private int validarString(String str) throws StringVacio, StringLargo {
-    if (str == null || str.trim().isEmpty()) {
-        throw new StringVacio("Error: El ingreso no puede estar vacio...");
-    }
-    if (str.length() > 10) {
-        throw new StringLargo("Error: El ingreso supera el maximo permitido");
-    }
-    return 1;
-}
-    
-    
-    private int validarNum() throws NumeroValidoExcepcion {
-        Scanner sc = new Scanner(System.in);
-        while (!sc.hasNextInt()) {
-            throw new NumeroValidoExcepcion("Error: Debe ingresar un numero entero...");
+
+    private void validarDistancia(float dist) throws NumeroNegativoExcepcion {
+        if (dist <= 0) {
+            throw new NumeroNegativoExcepcion("Error: La distancia debe ser un numero positivo...");
         }
-        return sc.nextInt();
-
+        setDistancia(dist);
     }
 
-    private int validarPos() throws NumeroValidoExcepcion, NumeroNegativoExcepcion {
-        int b = 0;
-        int num = validarNum();
-        if (num >= 0) {
-            b = 1;
-        } else {
-            throw new NumeroNegativoExcepcion("Error: Debe ingresar un numero positivo...");
+    private void validarPeso(float peso) throws NumeroNegativoExcepcion {
+        if (peso <= 0) {
+            throw new NumeroNegativoExcepcion("Error: El peso de carga debe ser un numero positivo...");
         }
-        return num;
-
+        setPesoCarga(peso);
     }
 
-    private float validarNumFloat() throws NumeroFlotanteExcepcion {
-        Scanner sc = new Scanner(System.in);
-        while (!sc.hasNextFloat()) {
-            throw new NumeroFlotanteExcepcion("Error: Debe ingresar un numero valido...");
+    private void validarPrioridad(String prio) {
+        if (!prio.equalsIgnoreCase("Alta") && !prio.equalsIgnoreCase("Baja")) {
+            throw new IllegalArgumentException("Error: La prioridad debe ser 'Alta' o 'Baja'.");
         }
-        return sc.nextFloat();
-
+        setPrioridad(prio);
     }
 
-    private float validarPosFloat() throws NumeroFlotanteExcepcion, NumeroNegativoExcepcion {
-        int b = 0;
-        float num = validarNumFloat();
-        if (num > 0) {
-            b = 1;
-        } else {
-            throw new NumeroNegativoExcepcion("Error: Debe ingresar un numero positivo...");
+    // Tu validador de strings (arreglado según la corrección del profesor)
+    private void validarString(String str) throws StringVacio, StringLargo {
+        if (str == null || str.trim().isEmpty()) {
+            throw new StringVacio("Error: El ingreso no puede estar vacio...");
         }
-        return num;
-    }
-    
-    
-    public void actualizarEstado(String s){
-        this.estado = s;
-    }
-    
-
-    public String getCodigoMision() {
-        return codigoMision;
+        if (str.length() > 10) {
+            throw new StringLargo("Error: El ingreso supera el maximo permitido");
+        }
     }
 
-    private void setCodigoMision(String codigoMision) {
-        this.codigoMision = codigoMision;
-    }
+    // -------------------------------------------------
+    // 3. SETTERS (Totalmente privados)
+    // -------------------------------------------------
+    private void setCodigoMision(String codigoMision) { this.codigoMision = codigoMision.trim(); }
+    private void setOrigen(String origen) { this.origen = origen.trim(); }
+    private void setDestino(String destino) { this.destino = destino.trim(); }
+    private void setDistancia(float distancia) { this.distancia = distancia; }
+    private void setPesoCarga(float pesoCarga) { this.pesoCarga = pesoCarga; }
+    private void setPrioridad(String prioridad) { this.prioridad = prioridad.trim(); }
 
-    public String getOrigen() {
-        return origen;
-    }
+    // Este es el único método para modificar el estado una vez asignado
+    public void actualizarEstado(String s) { this.estado = s; }
 
-    private void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    private void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public float getDistancia() {
-        return distancia;
-    }
-
-    private void setDistancia(float distancia) {
-        this.distancia = distancia;
-    }
-    public float getPesoCarga() {
-        return pesoCarga;
-    }
-
-    private void setPesoCarga(float pesoCarga) {
-        this.pesoCarga = pesoCarga;
-    }
-
-    public String getPrioridad() {
-        return prioridad;
-    }
-
-    private void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    private void setEstado(String estado) {
-        this.estado = estado;
-    }
-
+    // -------------------------------------------------
+    // 4. GETTERS (Públicos)
+    // -------------------------------------------------
+    public String getCodigoMision() { return codigoMision; }
+    public String getOrigen() { return origen; }
+    public String getDestino() { return destino; }
+    public float getDistancia() { return distancia; }
+    public float getPesoCarga() { return pesoCarga; }
+    public String getPrioridad() { return prioridad; }
+    public String getEstado() { return estado; }
 }
