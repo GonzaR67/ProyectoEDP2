@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Datos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Prof. Mauricio Hernandez
- */
 public class ArbolABB<T extends Comparable<T>> {
 
     private NodoABB<T> raiz;
@@ -18,25 +10,18 @@ public class ArbolABB<T extends Comparable<T>> {
     public ArbolABB() {
         raiz = null;
     }
-    // -------------------------------------------------
-    // VERIFICAR SI EL ÁRBOL ESTÁ VACÍO
-    // -------------------------------------------------
 
     public boolean estaVacio() {
         return raiz == null;
     }
-    // -------------------------------------------------
-    // INSERTAR
-    // -------------------------------------------------
 
     public void insertar(T dato) {
         raiz = insertarRecursivo(raiz, dato);
     }
 
-    private NodoABB insertarRecursivo(NodoABB<T> nodo, T dato) {
-        // Se encontró la posición donde insertar
+    private NodoABB<T> insertarRecursivo(NodoABB<T> nodo, T dato) {
         if (nodo == null) {
-            return new NodoABB(dato);
+            return new NodoABB<>(dato);
         }
         int comparacion = dato.compareTo(nodo.dato);
         if (comparacion < 0) {
@@ -44,15 +29,8 @@ public class ArbolABB<T extends Comparable<T>> {
         } else if (comparacion > 0) {
             nodo.derecho = insertarRecursivo(nodo.derecho, dato);
         }
-        // Si comparacion == 0 no se inserta
-        // porque no permitimos duplicados
-        return nodo;
+        return nodo; // Si es igual (0), no se insertan duplicados
     }
-    // -------------------------------------------------
-    // BUSCAR
-    // Devuelve el elemento almacenado que coincide con el
-    // dato recibido (compareTo == 0), o null si no existe
-    // -------------------------------------------------
 
     public T buscar(T dato) {
         return buscarRecursivo(raiz, dato);
@@ -71,53 +49,33 @@ public class ArbolABB<T extends Comparable<T>> {
         }
         return buscarRecursivo(nodo.derecho, dato);
     }
-    // -------------------------------------------------
-    // ELIMINAR
-    // -------------------------------------------------
 
     public void eliminar(T dato) {
         raiz = eliminarRecursivo(raiz, dato);
     }
 
-    private NodoABB eliminarRecursivo(NodoABB<T> nodo, T dato) {
-        if (nodo == null) {
-            return null;
-        }
+    private NodoABB<T> eliminarRecursivo(NodoABB<T> nodo, T dato) {
+        if (nodo == null) return null;
+        
         int comparacion = dato.compareTo(nodo.dato);
         if (comparacion < 0) {
             nodo.izquierdo = eliminarRecursivo(nodo.izquierdo, dato);
         } else if (comparacion > 0) {
             nodo.derecho = eliminarRecursivo(nodo.derecho, dato);
         } else {
-            // -----------------------------------------
-            // CASO 1:
-            // Nodo sin hijo izquierdo
-            // -----------------------------------------
-            if (nodo.izquierdo == null) {
-                return nodo.derecho;
-            }
-            // -----------------------------------------
-            // CASO 2:
-            // Nodo sin hijo derecho
-            // -----------------------------------------
-            if (nodo.derecho == null) {
-                return nodo.izquierdo;
-            }
-            // -----------------------------------------
-            // CASO 3:
-            // Nodo con dos hijos
-            // -----------------------------------------
+            // CASO 1: Sin hijo izquierdo
+            if (nodo.izquierdo == null) return nodo.derecho;
+            
+            // CASO 2: Sin hijo derecho
+            if (nodo.derecho == null) return nodo.izquierdo;
+            
+            // CASO 3: Con dos hijos
             NodoABB<T> sucesor = buscarMinimo(nodo.derecho);
-            // Copiar el dato del sucesor
             nodo.dato = sucesor.dato;
-            // Eliminar el sucesor
             nodo.derecho = eliminarRecursivo(nodo.derecho, sucesor.dato);
         }
         return nodo;
     }
-    // -------------------------------------------------
-    // BUSCAR EL MENOR ELEMENTO DE UN SUBÁRBOL
-    // -------------------------------------------------
 
     private NodoABB<T> buscarMinimo(NodoABB<T> nodo) {
         NodoABB<T> actual = nodo;
@@ -126,11 +84,17 @@ public class ArbolABB<T extends Comparable<T>> {
         }
         return actual;
     }
-    // -------------------------------------------------
-    // RECORRIDO INORDEN
-    // Devuelve los elementos en orden ascendente dentro de
-    // una lista (en lugar de imprimirlos por pantalla)
-    // -------------------------------------------------
+
+    public int contarElementos() {
+        return contarRecursivo(raiz);
+    }
+
+    private int contarRecursivo(NodoABB<T> nodo) {
+        if (nodo == null) {
+            return 0;
+        }
+        return 1 + contarRecursivo(nodo.izquierdo) + contarRecursivo(nodo.derecho);
+    }
 
     public List<T> inOrden() {
         List<T> lista = new ArrayList<>();
@@ -145,36 +109,32 @@ public class ArbolABB<T extends Comparable<T>> {
             inOrdenRecursivo(nodo.derecho, lista);
         }
     }
-    // -------------------------------------------------
-    // RECORRIDO PREORDEN
-    // -------------------------------------------------
 
-    public void preOrden() {
-        preOrdenRecursivo(raiz);
-        System.out.println();
+    public List<T> preOrden() {
+        List<T> lista = new ArrayList<>();
+        preOrdenRecursivo(raiz, lista);
+        return lista;
     }
 
-    private void preOrdenRecursivo(NodoABB<T> nodo) {
+    private void preOrdenRecursivo(NodoABB<T> nodo, List<T> lista) {
         if (nodo != null) {
-            System.out.print(nodo.dato + " ");
-            preOrdenRecursivo(nodo.izquierdo);
-            preOrdenRecursivo(nodo.derecho);
+            lista.add(nodo.dato);
+            preOrdenRecursivo(nodo.izquierdo, lista);
+            preOrdenRecursivo(nodo.derecho, lista);
         }
     }
-    // -------------------------------------------------
-    // RECORRIDO POSTORDEN
-    // -------------------------------------------------
 
-    public void postOrden() {
-        postOrdenRecursivo(raiz);
-        System.out.println();
+    public List<T> postOrden() {
+        List<T> lista = new ArrayList<>();
+        postOrdenRecursivo(raiz, lista);
+        return lista;
     }
 
-    private void postOrdenRecursivo(NodoABB<T> nodo) {
+    private void postOrdenRecursivo(NodoABB<T> nodo, List<T> lista) {
         if (nodo != null) {
-            postOrdenRecursivo(nodo.izquierdo);
-            postOrdenRecursivo(nodo.derecho);
-            System.out.print(nodo.dato + " ");
+            postOrdenRecursivo(nodo.izquierdo, lista);
+            postOrdenRecursivo(nodo.derecho, lista);
+            lista.add(nodo.dato);
         }
     }
 }

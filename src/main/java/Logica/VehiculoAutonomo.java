@@ -2,12 +2,10 @@ package Logica;
 
 import Presentacion.NumeroNegativoExcepcion;
 import Presentacion.StringLargo;
-import Presentacion.NumeroFlotanteExcepcion;
 import Presentacion.StringVacio;
 import Presentacion.NivelBateriInvalidoExcepcion;
-import Presentacion.NumeroValidoExcepcion;
 
-public abstract class VehiculoAutonomo implements Recargable,Comparable<VehiculoAutonomo> {
+public abstract class VehiculoAutonomo implements Recargable, Comparable<VehiculoAutonomo> {
     protected String codigo;
     protected String modelo;
     protected double bateria;
@@ -113,4 +111,15 @@ public abstract class VehiculoAutonomo implements Recargable,Comparable<Vehiculo
 
     public String getEstadoOperativo() { return estadoOperativo; }
     private void setEstadoOperativo(String estadoOperativo) { this.estadoOperativo = estadoOperativo; }
+    
+    /**
+     *
+     * @param otro
+     * @return
+     */
+    @Override
+    public int compareTo(VehiculoAutonomo otro) {
+        return this.codigo.compareTo(otro.getCodigo());
+    }
+    
 }
