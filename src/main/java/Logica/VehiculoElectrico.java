@@ -38,8 +38,15 @@ public class VehiculoElectrico extends VehiculoAutonomo {
         return "Vehiculo Electrico" + super.toString() + "\nAutonomia en KM=" + autonomiaKm + "\nTiempo de Recarga=" + tiempoRecarga;
     }
 
-    public int getAutonomiaKm() { return autonomiaKm; }
-    private void setAutonomiaKm(int autonomiaKm) { this.autonomiaKm = autonomiaKm; }
-    public int getTiempoRecarga() { return tiempoRecarga; }
-    private void setTiempoRecarga(int tiempoRecarga) { this.tiempoRecarga = tiempoRecarga; }
+    public int getAutonomiaKm() { 
+        return autonomiaKm; }
+    
+    private void setAutonomiaKm(int autonomiaKm) { 
+        this.autonomiaKm = autonomiaKm; }
+    
+    public int getTiempoRecarga() { 
+        return tiempoRecarga; }
+    
+    private void setTiempoRecarga(int tiempoRecarga) { 
+        this.tiempoRecarga = tiempoRecarga; }
 }

@@ -41,13 +41,24 @@ public class Estacion {
     }
 
 
-    private void setCodigo(String codigo) { this.codigo = codigo.trim(); }
-    private void setNombre(String nombre) { this.nombre = nombre.trim(); }
-    private void setZona(String zona) { this.zona = zona.trim(); }
+    private void setCodigo(String codigo) { 
+        this.codigo = codigo.trim(); }
+    
+    private void setNombre(String nombre) { 
+        this.nombre = nombre.trim(); }
+    
+    private void setZona(String zona) { 
+        this.zona = zona.trim(); }
+    
 
-    public String getCodigo() { return codigo; }
-    public String getNombre() { return nombre; }
-    public String getZona() { return zona; }
+    public String getCodigo() { 
+        return codigo; }
+    
+    public String getNombre() { 
+        return nombre; }
+    
+    public String getZona() { 
+        return zona; }
 
     @Override
     public String toString() {

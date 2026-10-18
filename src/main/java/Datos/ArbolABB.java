@@ -29,7 +29,7 @@ public class ArbolABB<T extends Comparable<T>> {
         } else if (comparacion > 0) {
             nodo.derecho = insertarRecursivo(nodo.derecho, dato);
         }
-        return nodo; // Si es igual (0), no se insertan duplicados
+        return nodo; 
     }
 
     public T buscar(T dato) {
@@ -63,13 +63,10 @@ public class ArbolABB<T extends Comparable<T>> {
         } else if (comparacion > 0) {
             nodo.derecho = eliminarRecursivo(nodo.derecho, dato);
         } else {
-            // CASO 1: Sin hijo izquierdo
             if (nodo.izquierdo == null) return nodo.derecho;
             
-            // CASO 2: Sin hijo derecho
             if (nodo.derecho == null) return nodo.izquierdo;
             
-            // CASO 3: Con dos hijos
             NodoABB<T> sucesor = buscarMinimo(nodo.derecho);
             nodo.dato = sucesor.dato;
             nodo.derecho = eliminarRecursivo(nodo.derecho, sucesor.dato);

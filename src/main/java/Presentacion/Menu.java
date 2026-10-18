@@ -12,6 +12,7 @@ import Logica.GestorVehiculos;
 import java.util.List;
 
 public class Menu {
+
     private GestorRed gestorRed;
     private GestorVehiculos gestorVehiculos;
     private Cola<Mision> M;
@@ -85,7 +86,6 @@ public class Menu {
 
                     v.validarDatosGenerales(cod, mod, bat, cap, km);
 
-                    // Insertamos usando el Gestor del Árbol
                     gestorVehiculos.agregarVehiculo(v);
                     Consola.emitirMensajeln("Vehiculo cargado correctamente en el arbol.");
 
@@ -127,16 +127,53 @@ public class Menu {
 
         List<VehiculoAutonomo> lista;
         switch (op) {
-            case 1: lista = gestorVehiculos.listarInOrden(); break;
-            case 2: lista = gestorVehiculos.listarPreOrden(); break;
-            case 3: lista = gestorVehiculos.listarPostOrden(); break;
-            default: 
+            case 1:
+                lista = gestorVehiculos.listarInOrden();
+                break;
+            case 2:
+                lista = gestorVehiculos.listarPreOrden();
+                break;
+            case 3:
+                lista = gestorVehiculos.listarPostOrden();
+                break;
+            default:
                 Consola.emitirMensajeln("Opcion invalida, mostrando InOrden por defecto.");
                 lista = gestorVehiculos.listarInOrden();
         }
 
         for (VehiculoAutonomo v : lista) {
             Consola.emitirMensajeln(v.toString());
+        }
+    }
+
+    public void buscarCodvehiculo() {
+        if (gestorVehiculos.estaVacio()) {
+            Consola.emitirMensajeln(
+                    "No hay vehiculos registrados en el sistema."
+            );
+            return;
+        }
+
+        Consola.emitirMensaje(
+                "Ingrese el codigo del vehiculo que desea buscar: "
+        );
+
+        String codigo = Consola.leerString();
+
+        VehiculoAutonomo vehiculo
+                = gestorVehiculos.buscarVehiculo(codigo);
+
+        if (vehiculo != null) {
+            Consola.emitirMensajeln(
+                    "\n--- VEHICULO ENCONTRADO ---"
+            );
+
+            Consola.emitirMensajeln(vehiculo.toString());
+
+        } else {
+            Consola.emitirMensajeln(
+                    "No se encontro ningun vehiculo con ese codigo."
+            );
         }
     }
 
@@ -147,7 +184,7 @@ public class Menu {
         }
         Consola.emitirMensaje("Ingrese el codigo del vehiculo a eliminar: ");
         String cod = Consola.leerString();
-        
+
         if (gestorVehiculos.eliminarVehiculo(cod)) {
             Consola.emitirMensajeln("Vehiculo eliminado exitosamente del arbol.");
         } else {
@@ -189,7 +226,7 @@ public class Menu {
                     Consola.emitirMensajeln(e.getMessage());
                 }
             }
-            
+
             boolean preguntar = true;
             while (preguntar) {
                 Consola.emitirMensajeln("\nDesea registrar otra mision? [Si / No]");
@@ -237,7 +274,7 @@ public class Menu {
             } else {
                 Consola.emitirMensajeln("No se encontro un vehiculo con ese codigo.");
             }
-            
+
             boolean preguntar = true;
             while (preguntar) {
                 Consola.emitirMensajeln("\nDesea verificar la disponibilidad de otro vehiculo? [Si / No]");
@@ -304,13 +341,13 @@ public class Menu {
         if (!m.getEstado().equalsIgnoreCase("Disponible")) {
             Consola.emitirMensajeln("La mision " + m.getCodigoMision() + " ya se encuentra en proceso.");
             M.encolar(m);
-            return; 
+            return;
         }
 
         Consola.emitirMensajeln("\n--- MISION A ASIGNAR ---");
         Consola.emitirMensajeln("Codigo: " + m.getCodigoMision());
         Consola.emitirMensajeln("Distancia: " + m.getDistancia() + " km | Peso: " + m.getPesoCarga() + " kg | Prioridad: " + m.getPrioridad());
-        
+
         Consola.emitirMensaje("\nIngrese el codigo del vehiculo que realizara la mision: ");
         String codVehiculo = Consola.leerString();
 
@@ -333,7 +370,7 @@ public class Menu {
         } else {
             Consola.emitirMensajeln("No se encontro un vehiculo con ese codigo.");
         }
-        
+
         if (!exito) {
             M.encolar(m);
             Consola.emitirMensajeln("La mision fue devuelta a la cola de pendientes.");
@@ -362,7 +399,7 @@ public class Menu {
             Consola.emitirMensajeln("No se encontro un vehiculo con ese codigo.");
         }
     }
-    
+
     private void cargarCasosPruebaGrafo() {
         gestorRed.agregarEstacion("E1", "Centro", "Norte");
         gestorRed.agregarEstacion("E2", "Plaza", "Centro");
@@ -407,11 +444,11 @@ public class Menu {
                     String c1 = Consola.leerString();
                     Consola.emitirMensaje("Codigo de Estacion 2: ");
                     String c2 = Consola.leerString();
-                    
+
                     if (gestorRed.existeConexionDirecta(c1, c2)) {
-                        Consola.emitirMensajeln("¡SI existe una conexion directa entre ellas!");
+                        Consola.emitirMensajeln("¡Si existe una conexion directa entre ellas!");
                     } else {
-                        Consola.emitirMensajeln("NO existe una conexion directa.");
+                        Consola.emitirMensajeln("No existe una conexion directa.");
                     }
                     break;
 
@@ -419,7 +456,7 @@ public class Menu {
                     Consola.emitirMensaje("Codigo de la Estacion central: ");
                     String codVecinas = Consola.leerString();
                     List<Estacion> vecinas = gestorRed.obtenerEstacionesVecinas(codVecinas);
-                    
+
                     if (vecinas.isEmpty()) {
                         Consola.emitirMensajeln("La estacion no tiene vecinas o no existe.");
                     } else {
@@ -434,7 +471,7 @@ public class Menu {
                     Consola.emitirMensaje("Codigo de Estacion inicial para el recorrido DFS: ");
                     String codInicio = Consola.leerString();
                     List<Estacion> recorrido = gestorRed.recorridoDFS(codInicio);
-                    
+
                     if (recorrido.isEmpty()) {
                         Consola.emitirMensajeln("Estacion no encontrada.");
                     } else {
@@ -445,11 +482,12 @@ public class Menu {
                         Consola.emitirMensajeln("FIN");
                     }
                     break;
-                    
+
                 case 5:
                     Consola.emitirMensajeln("Regresando...");
+             
                     break;
-                    
+
                 default:
                     Consola.emitirMensajeln("Opcion invalida.");
             }
@@ -462,19 +500,43 @@ public class Menu {
             mostrarOpciones();
             op = Consola.leerEntero();
             switch (op) {
-                case 1: registrarVehiculo(); break;
-                case 2: registrarMision(); break;
-                case 3: mostrarVehiculos(); break;
-                case 4: verDisponiblidad(); break;
-                case 5: asignarMision(); break;
-                case 6: recargarVehiculo(); break;
-                case 7: eliminarVehiculo(); break;
-                case 8: mostrarCantidadVehiculos(); break;
-                case 9: gestionarRedEstaciones(); break;
-                case 10: Consola.emitirMensajeln("Saliendo..."); break;
-                default: Consola.emitirMensajeln("Opcion invalida!");
+                case 1:
+                    registrarVehiculo();
+                    break;
+                case 2:
+                    registrarMision();
+                    break;
+                case 3:
+                    mostrarVehiculos();
+                    break;
+                case 4:
+                    verDisponiblidad();
+                    break;
+                case 5:
+                    asignarMision();
+                    break;
+                case 6:
+                    recargarVehiculo();
+                    break;
+                case 7:
+                    eliminarVehiculo();
+                    break;
+                case 8:
+                    mostrarCantidadVehiculos();
+                    break;
+                case 9:
+                    buscarCodvehiculo();
+                    break;
+                case 10:
+                    gestionarRedEstaciones();
+                    break;
+                case 11:
+                    Consola.emitirMensajeln("Saliendo...");
+                    break;
+                default:
+                    Consola.emitirMensajeln("Opcion invalida!");
             }
-        } while (op != 10);
+        } while (op != 11);
     }
 
     public void mostrarOpciones() {
@@ -487,8 +549,9 @@ public class Menu {
         Consola.emitirMensajeln("(6) Recargar un vehiculo");
         Consola.emitirMensajeln("(7) Eliminar un vehiculo");
         Consola.emitirMensajeln("(8) Mostrar cantidad de vehiculos");
-        Consola.emitirMensajeln("(9) Gestionar Red de Estaciones (Grafos)");
-        Consola.emitirMensajeln("(10) Salir");
+        Consola.emitirMensajeln("(9) Buscar vehiculo por codigo");
+        Consola.emitirMensajeln("(10) Gestionar Red de Estaciones (Grafos)");
+        Consola.emitirMensajeln("(11) Salir");
         Consola.emitirMensaje("\n>> ");
     }
 

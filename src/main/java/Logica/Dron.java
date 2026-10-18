@@ -22,7 +22,6 @@ public class Dron extends VehiculoAutonomo{
 
     @Override
     public boolean esApto(Mision m) {
-        // Logica pura, sin System.out
         if (this.bateria < 60) {
             return false;
         }
@@ -40,8 +39,15 @@ public class Dron extends VehiculoAutonomo{
         return "Dron" + super.toString() + "\nAutonomia en minutos=" + autonomia + "\nAltura maxima=" + alturaMax;
     }
 
-    public int getAutonomia() { return autonomia; }
-    private void setAutonomia(int autonomia) { this.autonomia = autonomia; }
-    public int getAlturaMax() { return alturaMax; }
-    private void setAlturaMax(int alturaMax) { this.alturaMax = alturaMax; }
+    public int getAutonomia() { 
+        return autonomia; }
+    
+    private void setAutonomia(int autonomia) { 
+        this.autonomia = autonomia; }
+    
+    public int getAlturaMax() { 
+        return alturaMax; }
+    
+    private void setAlturaMax(int alturaMax) { 
+        this.alturaMax = alturaMax; }
 }

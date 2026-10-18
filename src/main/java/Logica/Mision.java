@@ -1,7 +1,4 @@
 package Logica;
-
-// ¡IMPORTANTE! Ya no importamos java.util.Scanner;
-
 import Presentacion.NumeroNegativoExcepcion;
 import Presentacion.StringLargo;
 import Presentacion.StringVacio;
@@ -24,16 +21,11 @@ public class Mision {
         this.distancia = 0;
         this.pesoCarga = 0;
         this.prioridad = "";
-        this.estado = "disponible"; // Nace disponible por defecto, como pidió el profe
+        this.estado = "disponible";
     }
-
-    // -------------------------------------------------
-    // 1. EL MÉTODO AGRUPADOR
-    // Recibe todos los datos listos desde la Presentación
-    // -------------------------------------------------
+    
     public void validarDatos(String codigo, String origen, String destino, float distancia, float peso, String prioridad) 
             throws StringVacio, StringLargo, NumeroNegativoExcepcion {
-        
         validarCodigo(codigo);
         validarOrigen(origen);
         validarDestino(destino);
@@ -42,10 +34,6 @@ public class Mision {
         validarPrioridad(prioridad);
     }
 
-    // -------------------------------------------------
-    // 2. VALIDACIONES POR ATRIBUTO (Reemplazan a los leer...)
-    // Controlan el dato y, si es correcto, llaman a su setter
-    // -------------------------------------------------
     private void validarCodigo(String cod) throws StringVacio, StringLargo {
         validarString(cod);
         setCodigoMision(cod);
@@ -82,7 +70,6 @@ public class Mision {
         setPrioridad(prio);
     }
 
-    // Tu validador de strings (arreglado según la corrección del profesor)
     private void validarString(String str) throws StringVacio, StringLargo {
         if (str == null || str.trim().isEmpty()) {
             throw new StringVacio("Error: El ingreso no puede estar vacio...");
@@ -92,27 +79,45 @@ public class Mision {
         }
     }
 
-    // -------------------------------------------------
-    // 3. SETTERS (Totalmente privados)
-    // -------------------------------------------------
-    private void setCodigoMision(String codigoMision) { this.codigoMision = codigoMision.trim(); }
-    private void setOrigen(String origen) { this.origen = origen.trim(); }
-    private void setDestino(String destino) { this.destino = destino.trim(); }
-    private void setDistancia(float distancia) { this.distancia = distancia; }
-    private void setPesoCarga(float pesoCarga) { this.pesoCarga = pesoCarga; }
-    private void setPrioridad(String prioridad) { this.prioridad = prioridad.trim(); }
+    private void setCodigoMision(String codigoMision) { 
+        this.codigoMision = codigoMision.trim(); }
+    
+    private void setOrigen(String origen) { 
+        this.origen = origen.trim(); }
+    
+    private void setDestino(String destino) { 
+        this.destino = destino.trim(); }
+    
+    private void setDistancia(float distancia) { 
+        this.distancia = distancia; }
+    
+    private void setPesoCarga(float pesoCarga) { 
+        this.pesoCarga = pesoCarga; }
+    
+    private void setPrioridad(String prioridad) { 
+        this.prioridad = prioridad.trim(); }
 
-    // Este es el único método para modificar el estado una vez asignado
-    public void actualizarEstado(String s) { this.estado = s; }
+    public void actualizarEstado(String s) { 
+        this.estado = s; }
 
-    // -------------------------------------------------
-    // 4. GETTERS (Públicos)
-    // -------------------------------------------------
-    public String getCodigoMision() { return codigoMision; }
-    public String getOrigen() { return origen; }
-    public String getDestino() { return destino; }
-    public float getDistancia() { return distancia; }
-    public float getPesoCarga() { return pesoCarga; }
-    public String getPrioridad() { return prioridad; }
-    public String getEstado() { return estado; }
+    public String getCodigoMision() { 
+        return codigoMision; }
+    
+    public String getOrigen() { 
+        return origen; }
+    
+    public String getDestino() { 
+        return destino; }
+    
+    public float getDistancia() { 
+        return distancia; }
+    
+    public float getPesoCarga() { 
+        return pesoCarga; }
+    
+    public String getPrioridad() { 
+        return prioridad; }
+    
+    public String getEstado() { 
+        return estado; }
 }

@@ -43,7 +43,6 @@ public class GestorRed {
         return null;
     }
 
-    // 2. Registrar conexiones
     public boolean agregarConexion(String codEstacion1, String codEstacion2) {
         Estacion e1 = buscarEstacionPorCodigo(codEstacion1);
         Estacion e2 = buscarEstacionPorCodigo(codEstacion2);
@@ -57,7 +56,6 @@ public class GestorRed {
         return false;
     }
 
-    // 3. Consultar la red
     public List<Estacion> obtenerTodasLasEstaciones() {
         return new ArrayList<>(grafo.vertexSet());
     }
@@ -72,7 +70,6 @@ public class GestorRed {
         return conexiones;
     }
 
-    // 4. Consultar conexión directa
     public boolean existeConexionDirecta(String cod1, String cod2) {
         Estacion e1 = buscarEstacionPorCodigo(cod1);
         Estacion e2 = buscarEstacionPorCodigo(cod2);
@@ -82,7 +79,6 @@ public class GestorRed {
         return false;
     }
 
-    // 5. Consultar estaciones vecinas
     public List<Estacion> obtenerEstacionesVecinas(String codigo) {
         Estacion e = buscarEstacionPorCodigo(codigo);
         if (e != null) {
@@ -91,7 +87,6 @@ public class GestorRed {
         return new ArrayList<>();
     }
 
-    // 6. Recorrido DFS (En Profundidad)
     public List<Estacion> recorridoDFS(String codigoInicio) {
         List<Estacion> recorrido = new ArrayList<>();
         Estacion inicio = buscarEstacionPorCodigo(codigoInicio);

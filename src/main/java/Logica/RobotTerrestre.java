@@ -3,7 +3,7 @@ package Logica;
 import Presentacion.NumeroNegativoExcepcion;
 import Presentacion.StringLargo;
 import Presentacion.StringVacio;
-import Presentacion.VelocidadMaximaExcepcion; // Asegúrate de tener esta excepcion creada
+import Presentacion.VelocidadMaximaExcepcion; 
 
 public class RobotTerrestre extends VehiculoAutonomo {
     private String tipoTerreno;
@@ -43,8 +43,15 @@ public class RobotTerrestre extends VehiculoAutonomo {
         return "Robot Terrestre" + super.toString() + "\nTipo de terreno=" + tipoTerreno + "\nVelocidad maxima=" + velocidadMax;
     }
 
-    public String getTipoTerreno() { return tipoTerreno; }
-    private void setTipoTerreno(String tipoTerreno) { this.tipoTerreno = tipoTerreno; }
-    public float getVelocidadMax() { return velocidadMax; }
-    private void setVelocidadMax(float velocidadMax) { this.velocidadMax = velocidadMax; }
+    public String getTipoTerreno() { 
+        return tipoTerreno; }
+    
+    private void setTipoTerreno(String tipoTerreno) { 
+        this.tipoTerreno = tipoTerreno; }
+    
+    public float getVelocidadMax() { 
+        return velocidadMax; }
+    
+    private void setVelocidadMax(float velocidadMax) { 
+        this.velocidadMax = velocidadMax; }
 }

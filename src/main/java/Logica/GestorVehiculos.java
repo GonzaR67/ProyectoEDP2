@@ -16,7 +16,6 @@ public class GestorVehiculos {
     }
 
     public boolean agregarVehiculo(VehiculoAutonomo v) {
-        // Validamos que no exista otro con el mismo código
         if (buscarVehiculo(v.getCodigo()) != null) {
             return false; 
         }
@@ -24,18 +23,11 @@ public class GestorVehiculos {
         return true;
     }
 
-    // -------------------------------------------------
-    // BÚSQUEDA GENÉRICA (El truco del profesor)
-    // -------------------------------------------------
     public VehiculoAutonomo buscarVehiculo(String codigo) {
-        // Creamos un vehículo "dummy" solo para usarlo como clave de búsqueda
         VehiculoAutonomo claveBuscadora = new Dron();
         try {
-            // Le pasamos el código que buscamos, y rellenamos el resto con datos válidos 
-            // para que no salten las validaciones de tu clase hermética
             claveBuscadora.validarDatosGenerales(codigo, "Aux", 100, 10, 10);
         } catch (NivelBateriInvalidoExcepcion | NumeroNegativoExcepcion | StringLargo | StringVacio e) {
-            // No hacemos nada con el catch porque sabemos que los datos "Aux", 100, 10, 10 son válidos
         }
         
         return arbolVehiculos.buscar(claveBuscadora);

@@ -19,7 +19,7 @@ public abstract class VehiculoAutonomo implements Recargable, Comparable<Vehicul
         this.bateria = 0;
         this.capacidadCarga = 0;
         this.km = 0;
-        this.estadoOperativo = "Disponible"; // Nace disponible por defecto
+        this.estadoOperativo = "Disponible"; 
     }
 
     public void validarDatosGenerales(String codigo, String modelo, double bateria, int capacidadCarga, double km) 
@@ -31,8 +31,6 @@ public abstract class VehiculoAutonomo implements Recargable, Comparable<Vehicul
         validarCapacidadCarga(capacidadCarga);
         validarKm(km);
     }
-
-    // --- MÉTODOS DE VALIDACIÓN PRIVADOS ---
 
     private void validarCodigo(String cod) throws StringVacio, StringLargo {
         validarString(cod);
@@ -65,7 +63,6 @@ public abstract class VehiculoAutonomo implements Recargable, Comparable<Vehicul
         setKm(kilometros);
     }
 
-    // Este método debe ser protected para que el RobotTerrestre pueda validar su terreno
     protected void validarString(String str) throws StringVacio, StringLargo {
         if (str == null || str.trim().isEmpty()) {
             throw new StringVacio("Error: El ingreso no puede estar vacio...");
@@ -85,32 +82,48 @@ public abstract class VehiculoAutonomo implements Recargable, Comparable<Vehicul
                "\nEstado operativo=" + estadoOperativo;
     }
     
-    // Firma actualizada para poder comparar los atributos del vehículo con los de la misión
     public abstract boolean esApto(Mision m);
     
     public void cambiarEstado(String s){
         this.estadoOperativo = s;
     }
     
-    // --- GETTERS (Públicos) y SETTERS (Privados) ---
 
-    public String getCodigo() { return codigo; }
-    private void setCodigo(String codigo) { this.codigo = codigo.trim(); }
+    public String getCodigo() { 
+        return codigo; }
+    
+    private void setCodigo(String codigo) { 
+        this.codigo = codigo.trim(); }
 
-    public String getModelo() { return modelo; }
-    private void setModelo(String modelo) { this.modelo = modelo.trim(); }
+    public String getModelo() { 
+        return modelo; }
+    
+    private void setModelo(String modelo) { 
+        this.modelo = modelo.trim(); }
 
-    public double getBateria() { return bateria; }
-    private void setBateria(double bateria) { this.bateria = bateria; }
+    public double getBateria() { 
+        return bateria; }
+    
+    private void setBateria(double bateria) { 
+        this.bateria = bateria; }
 
-    public int getCapacidadCarga() { return capacidadCarga; }
-    private void setCapacidadCarga(int capacidadCarga) { this.capacidadCarga = capacidadCarga; }
+    public int getCapacidadCarga() { 
+        return capacidadCarga; }
+    
+    private void setCapacidadCarga(int capacidadCarga) { 
+        this.capacidadCarga = capacidadCarga; }
 
-    public double getKm() { return km; }
-    private void setKm(double km) { this.km = km; }
+    public double getKm() { 
+        return km; }
+    
+    private void setKm(double km) { 
+        this.km = km; }
 
-    public String getEstadoOperativo() { return estadoOperativo; }
-    private void setEstadoOperativo(String estadoOperativo) { this.estadoOperativo = estadoOperativo; }
+    public String getEstadoOperativo() { 
+        return estadoOperativo; }
+    
+    private void setEstadoOperativo(String estadoOperativo) { 
+        this.estadoOperativo = estadoOperativo; }
     
     /**
      *
